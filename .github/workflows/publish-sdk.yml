@@ -53,7 +53,7 @@ jobs:
 
       - name: build
         if: ${{ steps.cache-packages.outputs.cache-hit != 'true' }}
-        run: dotnet build dotnet restore Itmo.Dev.Asap.Gateway.sln -c Release --no-restore /p:PatchVersion=${{ github.run_number }}
+        run: dotnet build Itmo.Dev.Asap.Gateway.sln -c Release --no-restore /p:PatchVersion=${{ github.run_number }}
 
       - name: move packages
         if: ${{ steps.cache-packages.outputs.cache-hit != 'true' }}
