@@ -1,0 +1,59 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.StudentGroups";
+
+import "google/protobuf/wrappers.proto";
+import "models/student_group.proto";
+import "models/student.proto";
+
+service StudentGroupService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc FindByIds(FindByIdsRequest) returns (FindByIdsResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc GetStudents(GetStudentsRequest) returns (GetStudentsResponse);
+  rpc Query(QueryStudentGroupRequest) returns (QueryStudentGroupResponse);
+}
+
+message CreateRequest {
+  string name = 1;
+}
+
+message CreateResponse {
+  StudentGroup student_group = 1;
+}
+
+message FindByIdsRequest {
+  repeated string ids = 1;
+}
+
+message FindByIdsResponse {
+  repeated StudentGroup student_groups = 1;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string name = 2;
+}
+
+message UpdateResponse {
+  StudentGroup student_group = 1;
+}
+
+message GetStudentsRequest {
+  string group_id = 1;
+}
+
+message GetStudentsResponse {
+  repeated Student students = 1;
+}
+
+message QueryStudentGroupRequest {
+  google.protobuf.StringValue page_token = 1;
+  int32 page_size = 2;
+  
+  repeated string name_patterns = 3;
+}
+
+message QueryStudentGroupResponse {
+  google.protobuf.StringValue page_token = 1;
+  repeated StudentGroup student_groups = 2;
+}

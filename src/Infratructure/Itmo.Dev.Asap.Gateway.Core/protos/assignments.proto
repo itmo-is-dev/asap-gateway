@@ -1,0 +1,63 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Assignments";
+
+import "google/protobuf/timestamp.proto";
+import "models/assignment.proto";
+import "models/group_assignment.proto";
+
+service AssignmentsService {
+  rpc CreateAssignment(CreateRequest) returns (CreateResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc UpdatePoints(UpdatePointsRequest) returns (UpdatePointsResponse);
+  rpc GetGroupAssignments(GetGroupAssignmentsRequest) returns (GetGroupAssignmentsResponse);
+  rpc UpdateGroupAssignment(UpdateGroupAssignmentRequest) returns (UpdateGroupAssignmentResponse);
+}
+
+message CreateRequest {
+  string subject_course_id = 1;
+  string title = 2;
+  string short_name = 3;
+  int32 order = 4;
+  double min_points = 5;
+  double max_points = 6;
+}
+
+message CreateResponse {
+  Assignment assignment = 1;
+}
+
+message GetByIdRequest {
+  string id = 1;
+}
+
+message GetByIdResponse {
+  Assignment assignment = 1;
+}
+
+message UpdatePointsRequest {
+  string assignment_id = 1;
+  double min_points = 2;
+  double max_points = 3;
+}
+
+message UpdatePointsResponse {
+  Assignment assignment = 1;
+}
+
+message GetGroupAssignmentsRequest {
+  string assignment_id = 1;
+}
+
+message GetGroupAssignmentsResponse {
+  repeated GroupAssignment group_assignments = 1;
+}
+
+message UpdateGroupAssignmentRequest {
+  string assignment_id = 1;
+  string group_id = 2;
+  google.protobuf.Timestamp deadline = 3;
+}
+
+message UpdateGroupAssignmentResponse {
+  GroupAssignment group_assignment = 1;
+}

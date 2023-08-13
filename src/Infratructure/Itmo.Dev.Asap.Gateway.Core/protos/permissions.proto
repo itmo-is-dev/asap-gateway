@@ -1,0 +1,15 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Permissions";
+
+service PermissionService {
+  rpc IsSubmissionMentor(IsSubmissionMentorRequest) returns (IsSubmissionMentorResponse);
+}
+
+message IsSubmissionMentorRequest {
+  string user_id = 1;
+  string submission_id = 2;
+}
+
+message IsSubmissionMentorResponse {
+  bool is_mentor = 1;
+}

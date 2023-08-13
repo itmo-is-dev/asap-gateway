@@ -1,0 +1,21 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Github";
+
+import "google/protobuf/empty.proto";
+
+service GithubManagementService {
+  rpc ForceOrganizationUpdate(ForceOrganizationUpdateRequest) returns (google.protobuf.Empty);
+  rpc ForceAllOrganizationsUpdate(ForceAllOrganizationsUpdateRequest) returns (google.protobuf.Empty);
+  rpc ForceMentorSync(ForceMentorSyncRequest) returns (google.protobuf.Empty);
+}
+
+message ForceOrganizationUpdateRequest {
+  string subject_course_id = 1;
+}
+
+message ForceAllOrganizationsUpdateRequest {
+}
+
+message ForceMentorSyncRequest {
+  string organization_name = 1;
+}

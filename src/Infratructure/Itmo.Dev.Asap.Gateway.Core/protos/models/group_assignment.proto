@@ -1,0 +1,12 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
+
+import "google/protobuf/timestamp.proto";
+
+message GroupAssignment {
+  string group_id = 1;
+  string group_name = 2;
+  string assignment_id = 3;
+  string assignment_title = 4;
+  google.protobuf.Timestamp deadline = 5;
+}

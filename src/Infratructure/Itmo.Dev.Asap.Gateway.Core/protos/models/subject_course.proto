@@ -1,0 +1,15 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
+
+message SubjectCourse {
+  string id = 1;
+  string subject_id = 2;
+  string title = 3;
+  SubmissionStateWorkflowType workflow_type = 4;
+}
+
+enum SubmissionStateWorkflowType {
+  SUBMISSION_STATE_WORKFLOW_TYPE_NONE = 0;
+  SUBMISSION_STATE_WORKFLOW_TYPE_REVIEW_ONLY = 1;
+  SUBMISSION_STATE_WORKFLOW_TYPE_REVIEW_WITH_DEFENCE = 2;
+}

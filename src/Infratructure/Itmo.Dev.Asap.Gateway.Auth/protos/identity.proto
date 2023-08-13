@@ -1,0 +1,84 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Auth";
+
+import "google/protobuf/empty.proto";
+import "models/identity_user.proto";
+
+service IdentityService {
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+  rpc ChangeUserRole(ChangeUserRoleRequest) returns (google.protobuf.Empty);
+  rpc CreateUserAccount(CreateUserAccountRequest) returns (google.protobuf.Empty);
+  rpc UpdateUsername(UpdateUsernameRequest) returns (UpdateUsernameResponse);
+  rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse);
+  rpc GetPasswordOptions(GetPasswordOptionsRequest) returns (GetPasswordOptionsResponse);
+  rpc FindUsers(FindUsersRequest) returns (FindUsersResponse);
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenResponse {
+  bool is_token_valid = 1;
+}
+
+message ChangeUserRoleRequest {
+  string username = 1;
+  string role = 2;
+}
+
+message CreateUserAccountRequest {
+  string user_id = 1;
+  string username = 2;
+  string password = 3;
+  string role = 4;
+}
+
+message UpdateUsernameRequest {
+  string issuer_id = 1;
+  string username = 2;
+}
+
+message UpdateUsernameResponse {
+  string token = 1;
+}
+
+message UpdatePasswordRequest {
+  string issuer_id = 1;
+  string current_password = 2;
+  string new_password = 3;
+}
+
+message UpdatePasswordResponse {
+  string token = 1;
+}
+
+message GetPasswordOptionsRequest {
+}
+
+message GetPasswordOptionsResponse {
+  bool require_digit = 1;
+  bool require_lowercase = 2;
+  bool require_non_alphanumeric = 3;
+  bool require_uppercase = 4;
+  int32 required_length = 5;
+  int32 required_unique_chars = 6;
+}
+
+message FindUsersRequest {
+  repeated string user_ids = 1;
+}
+
+message FindUsersResponse {
+  repeated IdentityUser users = 2;
+}
