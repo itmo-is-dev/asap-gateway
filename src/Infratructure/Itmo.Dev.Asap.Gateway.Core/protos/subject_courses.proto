@@ -1,0 +1,93 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.SubjectCourses";
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "models/subject_course.proto";
+import "models/student.proto";
+import "models/assignment.proto";
+import "models/subject_course_group.proto";
+import "models/group_submission_queue.proto";
+
+service SubjectCourseService {
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc GetStudents(GetStudentsRequest) returns (GetStudentsResponse);
+  rpc GetAssignments(GetAssignmentsRequest) returns (GetAssignmentsResponse);
+  rpc GetGroups(GetGroupsRequest) returns (GetGroupsResponse);
+  rpc GetStudentGroupQueue(GetStudentGroupQueueRequest) returns (GetStudentGroupQueueResponse);
+  rpc AddDeadline(AddDeadlineRequest) returns (google.protobuf.Empty);
+  rpc ForceSyncPoints(ForceSyncPointsRequest) returns (google.protobuf.Empty);
+}
+
+message GetByIdRequest {
+  string id = 1;
+}
+
+message GetByIdResponse {
+  SubjectCourse subject_course = 1;
+}
+
+message CreateRequest {
+  string correlation_id = 1;
+  string subject_id = 2;
+  string title = 3;
+  SubmissionStateWorkflowType workflow_type = 4;
+}
+
+message CreateResponse {
+  SubjectCourse subject_course = 1;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string title = 2;
+}
+
+message UpdateResponse {
+  SubjectCourse subject_course = 1;
+}
+
+message GetStudentsRequest {
+  string subject_course_id = 1;
+}
+
+message GetStudentsResponse {
+  repeated Student students = 1;
+}
+
+message GetAssignmentsRequest {
+  string subject_course_id = 1;
+}
+
+message GetAssignmentsResponse {
+  repeated Assignment assignments = 1;
+}
+
+message GetGroupsRequest {
+  string subject_course_id = 1;
+}
+
+message GetGroupsResponse {
+  repeated SubjectCourseGroup groups = 1;
+}
+
+message GetStudentGroupQueueRequest {
+  string subject_course_id = 1;
+  string student_group_id = 2;
+}
+
+message GetStudentGroupQueueResponse {
+  GroupSubmissionQueue queue = 1;
+}
+
+message AddDeadlineRequest {
+  string subject_course_id = 1;
+  google.protobuf.Duration span_before_activation = 2;
+  double fraction = 3;
+}
+
+message ForceSyncPointsRequest {
+  string subject_course_id = 1;
+}

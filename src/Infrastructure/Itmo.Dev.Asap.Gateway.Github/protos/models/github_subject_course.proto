@@ -1,0 +1,9 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Github.Models";
+
+message GithubSubjectCourse {
+  string id = 1;
+  string organization_name = 2;
+  string template_repository_name = 3;
+  string mentor_team_name = 4;
+}

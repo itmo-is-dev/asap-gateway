@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" />
+        <PackageReference Include="Grpc.Core.Api"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\..\Presentation\Itmo.Dev.Asap.Gateway.Presentation.Authentication\Itmo.Dev.Asap.Gateway.Presentation.Authentication.csproj"/>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,28 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+message Submission {
+  string id = 1;
+  int32 code = 2;
+  google.protobuf.Timestamp submission_date = 3;
+  string student_id = 4;
+  string assignment_id = 5;
+  string payload = 6;
+  google.protobuf.DoubleValue extra_points = 7;
+  google.protobuf.DoubleValue points = 8;
+  string assignment_short_name = 9;
+  SubmissionState state = 10;
+}
+
+enum SubmissionState {
+  SUBMISSION_STATE_NONE = 0;
+  SUBMISSION_STATE_ACTIVE = 1;
+  SUBMISSION_STATE_INACTIVE = 2;
+  SUBMISSION_STATE_DELETED = 3;
+  SUBMISSION_STATE_COMPLETED = 4;
+  SUBMISSION_STATE_REVIEWED = 5;
+  SUBMISSION_STATE_BANNED = 6;
+}

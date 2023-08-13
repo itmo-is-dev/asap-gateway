@@ -1,0 +1,12 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
+
+message Assignment {
+  string id = 1;
+  string subject_course_id = 2;
+  string title = 3;
+  string short_name = 4;
+  int32 order = 5;
+  double min_points = 6;
+  double max_points = 7;
+}

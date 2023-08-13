@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+      <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Application\Itmo.Dev.Asap.Gateway.Application.Dto\Itmo.Dev.Asap.Gateway.Application.Dto.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Itmo.Dev.Asap.Gateway.Github\Itmo.Dev.Asap.Gateway.Github.csproj" />
+      <ProjectReference Include="..\..\Infratructure\Itmo.Dev.Asap.Gateway.Auth\Itmo.Dev.Asap.Gateway.Auth.csproj" />
+      <ProjectReference Include="..\..\Infratructure\Itmo.Dev.Asap.Gateway.Core\Itmo.Dev.Asap.Gateway.Core.csproj" />
+      <ProjectReference Include="..\Itmo.Dev.Asap.Gateway.Presentation.Abstractions\Itmo.Dev.Asap.Gateway.Presentation.Abstractions.csproj" />
+      <ProjectReference Include="..\Itmo.Dev.Asap.Gateway.Presentation.Authorization\Itmo.Dev.Asap.Gateway.Presentation.Authorization.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="ITMO.Dev.ASAP.Tests.Controllers" />
+    </ItemGroup>
+
+
+</Project>

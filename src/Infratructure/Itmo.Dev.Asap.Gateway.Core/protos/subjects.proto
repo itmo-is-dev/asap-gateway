@@ -1,0 +1,53 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Subjects";
+
+import "models/subject.proto";
+import "models/subject_course.proto";
+
+service SubjectService {
+  rpc CreateSubject(CreateSubjectRequest) returns (CreateSubjectResponse);
+  rpc GetAll(GetAllRequest) returns (GetAllResponse);
+  rpc GetById(GetByIdRequest) returns (GetByIdResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc GetCourses(GetCoursesRequest) returns (GetCoursesResponse);
+}
+
+message CreateSubjectRequest {
+  string title = 1;
+}
+
+message CreateSubjectResponse {
+  Subject subject = 1;
+}
+
+message GetAllRequest {
+}
+
+message GetAllResponse {
+  repeated Subject subjects = 1;
+}
+
+message GetByIdRequest {
+  string id = 1;
+}
+
+message GetByIdResponse {
+  Subject subject = 1;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string name = 2;
+}
+
+message UpdateResponse {
+  Subject subject = 1;
+}
+
+message GetCoursesRequest {
+  string subject_id = 1;
+}
+
+message GetCoursesResponse {
+  repeated SubjectCourse subject_courses = 1;
+}

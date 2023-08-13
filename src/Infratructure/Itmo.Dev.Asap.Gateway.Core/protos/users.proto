@@ -1,0 +1,66 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Users";
+
+import "google/protobuf/wrappers.proto";
+import "models/user.proto";
+
+service UserService {
+  rpc FindByUniversityId(FindByUniversityIdRequest) returns (FindByUniversityIdResponse);
+  rpc FindById(FindByIdRequest) returns (FindByIdResponse);
+  rpc UpdateUniversityId(UpdateUniversityIdRequest) returns (UpdateUniversityIdResponse);
+  rpc UpdateName(UpdateNameRequest) returns (UpdateNameResponse);
+  rpc Query(QueryRequest) returns (QueryResponse);
+}
+
+message FindByUniversityIdRequest {
+  int32 university_id = 1;
+}
+
+message FindByUniversityIdResponse {
+  oneof user {
+    User user_value = 1;
+  }
+}
+
+message FindByIdRequest {
+  string user_id = 1;
+}
+
+message FindByIdResponse {
+  oneof user {
+    User user_value = 1;
+  }
+}
+
+message UpdateUniversityIdRequest {
+  string user_id = 1;
+  int32 university_id = 2;
+}
+
+message UpdateUniversityIdResponse {
+  User user = 1;
+}
+
+message UpdateNameRequest {
+  string user_id = 1;
+  string first_name = 2;
+  string middle_name = 3;
+  string last_name = 4;
+}
+
+message UpdateNameResponse {
+  User user = 1;
+}
+
+message QueryRequest {
+  google.protobuf.StringValue page_token = 1;
+  int32 page_size = 2;
+
+  repeated string name_patterns = 3;
+  repeated int32 university_ids = 4;
+}
+
+message QueryResponse {
+  google.protobuf.StringValue page_token = 1;
+  repeated User users = 2;
+}

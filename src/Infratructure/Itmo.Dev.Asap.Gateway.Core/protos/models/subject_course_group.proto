@@ -1,0 +1,8 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
+
+message SubjectCourseGroup {
+  string subject_course_id = 1;
+  string student_group_id = 2;
+  string student_group_name = 3;
+}

@@ -1,0 +1,31 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Github.SubjectCourses";
+
+import "google/protobuf/empty.proto";
+import "models/github_subject_course.proto";
+
+service GithubSubjectCourseService {
+  rpc ProvisionSubjectCourse(ProvisionSubjectCourseRequest) returns (google.protobuf.Empty);
+  rpc UpdateMentorTeam(UpdateMentorTeamRequest) returns (google.protobuf.Empty);
+  rpc FindByIds(FindByIdsRequest) returns (FindByIdsResponse);
+}
+
+message ProvisionSubjectCourseRequest {
+  string correlation_id = 1;
+  string organization_name = 2;
+  string template_repository_name = 3;
+  string mentor_team_name = 4;
+}
+
+message UpdateMentorTeamRequest {
+  string subject_course_id = 1;
+  string mentors_team_name = 2;
+}
+
+message FindByIdsRequest {
+  repeated string subject_course_ids = 1;
+}
+
+message FindByIdsResponse {
+  repeated GithubSubjectCourse subject_courses = 1;
+}
