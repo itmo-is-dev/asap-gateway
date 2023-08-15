@@ -28,7 +28,6 @@
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions"/>
         <PackageReference Include="Refit"/>
         <PackageReference Include="Refit.HttpClientFactory"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
         <PackageReference Include="Refit.Newtonsoft.Json" />
         <PackageReference Include="ronimizy.FluentSerialization.Extensions.NewtonsoftJson" />
     </ItemGroup>
