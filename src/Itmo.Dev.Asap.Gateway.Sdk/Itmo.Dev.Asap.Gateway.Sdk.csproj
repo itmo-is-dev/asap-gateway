@@ -33,8 +33,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Application\Itmo.Dev.Asap.Gateway.Application.Dto\Itmo.Dev.Asap.Gateway.Application.Dto.csproj"/>
-        <ProjectReference Include="..\Presentation\Itmo.Dev.Asap.Gateway.Presentation.Abstractions\Itmo.Dev.Asap.Gateway.Presentation.Abstractions.csproj"/>
+        <ProjectReference Include="..\Application\Itmo.Dev.Asap.Gateway.Application.Dto\Itmo.Dev.Asap.Gateway.Application.Dto.csproj" PrivateAssets="all"/>
+        <ProjectReference Include="..\Presentation\Itmo.Dev.Asap.Gateway.Presentation.Abstractions\Itmo.Dev.Asap.Gateway.Presentation.Abstractions.csproj" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
