@@ -1,8 +1,12 @@
+using FluentSerialization;
+using FluentSerialization.Extensions.NewtonsoftJson;
+using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Tools;
 using Itmo.Dev.Asap.Gateway.Sdk.Authentication;
 using Itmo.Dev.Asap.Gateway.Sdk.Clients;
 using Itmo.Dev.Asap.Gateway.Sdk.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Refit;
 
 namespace Itmo.Dev.Asap.Gateway.Sdk.Extensions;
@@ -29,8 +33,15 @@ public static class ServiceCollectionExtensions
 
         void AddClient<TClient>() where TClient : class
         {
+            JsonSerializerSettings serializerSettings = ConfigurationBuilder
+                .Build(new PresentationSerializationConfiguration())
+                .AsNewtonsoftSerializationSettings();
+
             collection
-                .AddRefitClient<TClient>()
+                .AddRefitClient<TClient>(new RefitSettings
+                {
+                    ContentSerializer = new NewtonsoftJsonContentSerializer(serializerSettings),
+                })
                 .ConfigureHttpClient((sp, client) =>
                 {
                     IOptions<GatewayOptions> options = sp.GetRequiredService<IOptions<GatewayOptions>>();
