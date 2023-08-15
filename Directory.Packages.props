@@ -26,6 +26,7 @@
     <PackageVersion Include="Npgsql" Version="7.0.4" />
     <PackageVersion Include="Refit" Version="7.0.0" />
     <PackageVersion Include="Refit.HttpClientFactory" Version="7.0.0" />
+    <PackageVersion Include="Refit.Newtonsoft.Json" Version="7.0.0" />
     <PackageVersion Include="Respawn" Version="6.0.0" />
     <PackageVersion Include="Riok.Mapperly" Version="3.0.0" />
     <PackageVersion Include="ronimizy.FluentSerialization" Version="1.2.0" />
