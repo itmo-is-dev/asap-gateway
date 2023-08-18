@@ -1,6 +1,7 @@
 #pragma warning disable CA1506
 
 using FluentSerialization.Extensions.NewtonsoftJson;
+using Itmo.Dev.Asap.Gateway.Application.Dto.Tools;
 using Itmo.Dev.Asap.Gateway.Application.Extensions;
 using Itmo.Dev.Asap.Gateway.Auth.Extensions;
 using Itmo.Dev.Asap.Gateway.Core.Extensions;
@@ -30,7 +31,7 @@ builder.Services
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson(options => SerializationConfigurationBuilder
-        .Build(new PresentationSerializationConfiguration())
+        .Build(new PresentationSerializationConfiguration(), new DtoSerializationConfiguration())
         .ApplyToSerializationSettings(options.SerializerSettings))
     .AddPresentationControllers();
 

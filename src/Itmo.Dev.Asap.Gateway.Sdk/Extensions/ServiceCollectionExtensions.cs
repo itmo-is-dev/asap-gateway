@@ -1,5 +1,6 @@
 using FluentSerialization;
 using FluentSerialization.Extensions.NewtonsoftJson;
+using Itmo.Dev.Asap.Gateway.Application.Dto.Tools;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Tools;
 using Itmo.Dev.Asap.Gateway.Sdk.Authentication;
 using Itmo.Dev.Asap.Gateway.Sdk.Clients;
@@ -34,7 +35,7 @@ public static class ServiceCollectionExtensions
         void AddClient<TClient>() where TClient : class
         {
             JsonSerializerSettings serializerSettings = ConfigurationBuilder
-                .Build(new PresentationSerializationConfiguration())
+                .Build(new PresentationSerializationConfiguration(), new DtoSerializationConfiguration())
                 .AsNewtonsoftSerializationSettings();
 
             collection
