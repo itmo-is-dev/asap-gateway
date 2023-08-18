@@ -25,7 +25,12 @@ internal class AuthAuthenticationHandler : AuthenticationHandler<AuthAuthenticat
 
         TokenProvider tokenProvider = services.GetRequiredService<TokenProvider>();
 
-        string token = Request.Headers.Authorization.ToString()[(Scheme.Name.Length + 1)..];
+        string authorizationHeader = Request.Headers.Authorization.ToString();
+
+        if (string.IsNullOrEmpty(authorizationHeader))
+            return AuthenticateResult.NoResult();
+
+        string token = authorizationHeader[(Scheme.Name.Length + 1)..];
 
         if (string.IsNullOrEmpty(token))
             return AuthenticateResult.NoResult();

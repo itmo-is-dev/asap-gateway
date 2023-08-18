@@ -1,3 +1,5 @@
+#pragma warning disable CA1506
+
 using FluentSerialization.Extensions.NewtonsoftJson;
 using Itmo.Dev.Asap.Gateway.Application.Extensions;
 using Itmo.Dev.Asap.Gateway.Auth.Extensions;
@@ -32,6 +34,7 @@ builder.Services
         .ApplyToSerializationSettings(options.SerializerSettings))
     .AddPresentationControllers();
 
+builder.Services.AddCors(o => o.AddDefaultPolicy(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 builder.Services.AddSwaggerConfiguration();
 
 WebApplication app = builder.Build();
@@ -39,8 +42,8 @@ WebApplication app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,4 +1,5 @@
 using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment;
+using Microsoft.Extensions.Logging;
 
 namespace Itmo.Dev.Asap.Gateway.Application.Enrichment;
 
@@ -7,9 +8,13 @@ public class EnrichmentProcessor<TIdentifier, TBuilder, TEntity> : IEnrichmentPr
     where TIdentifier : notnull
 {
     private readonly IReadOnlyCollection<IEntityEnricher<TIdentifier, TBuilder, TEntity>> _enrichers;
+    private readonly ILogger<EnrichmentProcessor<TIdentifier, TBuilder, TEntity>> _logger;
 
-    public EnrichmentProcessor(IEnumerable<IEntityEnricher<TIdentifier, TBuilder, TEntity>> enrichers)
+    public EnrichmentProcessor(
+        IEnumerable<IEntityEnricher<TIdentifier, TBuilder, TEntity>> enrichers,
+        ILogger<EnrichmentProcessor<TIdentifier, TBuilder, TEntity>> logger)
     {
+        _logger = logger;
         _enrichers = enrichers.ToArray();
     }
 
@@ -21,7 +26,14 @@ public class EnrichmentProcessor<TIdentifier, TBuilder, TEntity> : IEnrichmentPr
 
         foreach (IEntityEnricher<TIdentifier, TBuilder, TEntity> enricher in _enrichers)
         {
-            await enricher.EnrichAsync(context, cancellationToken);
+            try
+            {
+                await enricher.EnrichAsync(context, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning(e, "Failed enrich entity");
+            }
         }
 
         return context.Builders.Select(x => x.Build());

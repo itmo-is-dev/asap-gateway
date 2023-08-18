@@ -6,7 +6,7 @@ public record CreateSubjectCourseRequest(
     Guid SubjectId,
     string Name,
     SubmissionStateWorkflowTypeDto WorkflowType,
-    CreateSubjectCourseArgs Args);
+    CreateSubjectCourseArgs? Args);
 
 public abstract record CreateSubjectCourseArgs;
 

@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
 
         foreach (IConfigurationSection childSection in clientSection.GetChildren())
         {
+            Console.WriteLine($"loading {childSection.Key} connection");
             collection.Configure<GrpcClientOptions>(childSection.Key, childSection);
         }
 
