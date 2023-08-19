@@ -17,7 +17,9 @@
     <PropertyGroup>
         <PatchVersion>0</PatchVersion>
         <Version>1.0.$(PatchVersion)</Version>
-        <PackageReleaseNotes>Itmo.Dev.Asap.Gateway.Sdk</PackageReleaseNotes>
+        <PackageReleaseNotes>
+            Fixed UpdateGroupAssignment url
+        </PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

@@ -27,7 +27,7 @@ public interface IAssignmentClient
         Guid assignmentId,
         CancellationToken cancellationToken);
 
-    [Put("api/assignments/{assignmentId}/groups/{groupId}")]
+    [Put("/api/assignments/{assignmentId}/groups/{groupId}")]
     Task<IApiResponse<GroupAssignmentDto>> UpdateGroupAssignment(
         Guid assignmentId,
         Guid groupId,
