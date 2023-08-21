@@ -50,6 +50,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\publish-sdk.yml = .github\workflows\publish-sdk.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itmo.Dev.Asap.Gateway.Presentation.SignalR", "src\Presentation\Itmo.Dev.Asap.Gateway.Presentation.SignalR\Itmo.Dev.Asap.Gateway.Presentation.SignalR.csproj", "{ADB1D825-D83F-4EB1-A3BD-397CD521883D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,7 @@ Global
 		{F1BD5B54-CE45-4A4A-A1E7-7174EFFFDDD9} = {D9C40664-D017-4AE1-A1BF-742911A0BEFF}
 		{FC872A61-CC5D-4C89-87B6-E688D2841FAB} = {D9C40664-D017-4AE1-A1BF-742911A0BEFF}
 		{B6BB1A48-325A-4A2C-AC55-BA88C09F6917} = {EC8C22D7-BA8E-4782-977E-99386F35DA6E}
+		{ADB1D825-D83F-4EB1-A3BD-397CD521883D} = {141563DC-0CAD-4A70-8E9E-74D61CE85E03}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EBC41D0E-6F4A-4237-87E7-7CE1DE84E007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -132,5 +135,9 @@ Global
 		{FC872A61-CC5D-4C89-87B6-E688D2841FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC872A61-CC5D-4C89-87B6-E688D2841FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC872A61-CC5D-4C89-87B6-E688D2841FAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADB1D825-D83F-4EB1-A3BD-397CD521883D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADB1D825-D83F-4EB1-A3BD-397CD521883D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADB1D825-D83F-4EB1-A3BD-397CD521883D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADB1D825-D83F-4EB1-A3BD-397CD521883D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

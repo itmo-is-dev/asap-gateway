@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\..\Infratructure\Itmo.Dev.Asap.Gateway.Core\Itmo.Dev.Asap.Gateway.Core.csproj" />
+        <ProjectReference Include="..\Itmo.Dev.Asap.Gateway.Presentation.Abstractions\Itmo.Dev.Asap.Gateway.Presentation.Abstractions.csproj"/>
+        <ProjectReference Include="..\Itmo.Dev.Asap.Gateway.Presentation.Authorization\Itmo.Dev.Asap.Gateway.Presentation.Authorization.csproj" />
+        <ProjectReference Include="..\Itmo.Dev.Asap.Gateway.Presentation.Controllers\Itmo.Dev.Asap.Gateway.Presentation.Controllers.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" />
+    </ItemGroup>
+
+</Project>

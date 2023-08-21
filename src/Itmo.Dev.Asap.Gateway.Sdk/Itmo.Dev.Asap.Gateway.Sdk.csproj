@@ -27,11 +27,14 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions"/>
+        <PackageReference Include="Phazor.Extensions" />
         <PackageReference Include="Refit"/>
         <PackageReference Include="Refit.HttpClientFactory"/>
         <PackageReference Include="Refit.Newtonsoft.Json" />
         <PackageReference Include="ronimizy.FluentSerialization.Extensions.NewtonsoftJson" />
+        <PackageReference Include="System.Reactive" />
     </ItemGroup>
 
     <ItemGroup>

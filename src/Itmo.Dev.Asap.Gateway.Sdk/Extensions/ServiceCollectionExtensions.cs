@@ -4,6 +4,7 @@ using Itmo.Dev.Asap.Gateway.Application.Dto.Tools;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Tools;
 using Itmo.Dev.Asap.Gateway.Sdk.Authentication;
 using Itmo.Dev.Asap.Gateway.Sdk.Clients;
+using Itmo.Dev.Asap.Gateway.Sdk.Clients.Implementation;
 using Itmo.Dev.Asap.Gateway.Sdk.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -29,6 +30,8 @@ public static class ServiceCollectionExtensions
         AddClient<ISubjectCourseClient>();
         AddClient<ISubjectCourseGroupClient>();
         AddClient<IUserClient>();
+
+        collection.AddSingleton<IQueueClient, QueueClient>();
 
         return collection;
 

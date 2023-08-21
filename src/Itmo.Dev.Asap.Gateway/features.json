@@ -187,10 +187,22 @@
           "admin"
         ],
         "QueryIdentityInfo": [
-          "admin  "
+          "admin"
         ],
         "GithubUpdateUsername" : [
           "admin"
+        ]
+      },
+      "Queue" : {
+        "SubscribeToQueueUpdates" : [
+          "admin",
+          "moderator",
+          "mentor"
+        ],
+        "UnsubscribeFromQueueUpdates" : [
+          "admin",
+          "moderator",
+          "mentor"
         ]
       }
     }

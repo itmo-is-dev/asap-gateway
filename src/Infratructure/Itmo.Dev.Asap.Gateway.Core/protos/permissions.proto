@@ -3,6 +3,7 @@ option csharp_namespace = "Itmo.Dev.Asap.Core.Permissions";
 
 service PermissionService {
   rpc IsSubmissionMentor(IsSubmissionMentorRequest) returns (IsSubmissionMentorResponse);
+  rpc HasAccessToSubjectCourse(HasAccessToSubjectCourseRequest) returns (HasAccessToSubjectCourseResponse);
 }
 
 message IsSubmissionMentorRequest {
@@ -12,4 +13,12 @@ message IsSubmissionMentorRequest {
 
 message IsSubmissionMentorResponse {
   bool is_mentor = 1;
+}
+
+message HasAccessToSubjectCourseRequest {
+  string subject_course_id = 1;
+}
+
+message HasAccessToSubjectCourseResponse {
+  bool has_access = 1;
 }

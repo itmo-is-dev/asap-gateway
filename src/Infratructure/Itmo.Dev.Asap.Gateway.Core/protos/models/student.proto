@@ -8,5 +8,4 @@ message Student {
   User user = 1;
   google.protobuf.StringValue group_id = 2;
   string group_name = 3;
-  google.protobuf.Int32Value university_id = 4;
 }

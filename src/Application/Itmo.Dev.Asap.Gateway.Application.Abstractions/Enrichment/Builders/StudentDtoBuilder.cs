@@ -10,7 +10,6 @@ public class StudentDtoBuilder : IEntityBuilder<string, StudentDto>
         User = user;
         GroupId = groupId;
         GroupName = groupName;
-        UniversityId = universityId;
     }
 
     public string Id { get; }
@@ -21,10 +20,8 @@ public class StudentDtoBuilder : IEntityBuilder<string, StudentDto>
 
     public string GroupName { get; }
 
-    public int? UniversityId { get; }
-
     public StudentDto Build()
     {
-        return new StudentDto(User.Build(), GroupId, GroupName, UniversityId);
+        return new StudentDto(User.Build(), GroupId, GroupName);
     }
 }

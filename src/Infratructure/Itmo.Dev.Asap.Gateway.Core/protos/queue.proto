@@ -1,0 +1,34 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Queue";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "models/student.proto";
+import "models/submission.proto";
+
+
+service QueueService {
+  rpc QueueUpdates(google.protobuf.Empty) returns (stream QueueUpdatedResponse);
+}
+
+message QueueUpdatedResponse {
+  string subject_course_id = 1;
+  string student_group_id = 2;
+  string student_group_name = 3;
+  SubmissionQueue submissions_queue = 4;
+
+  message SubmissionQueue {
+    map<string, Student> students = 2;
+    repeated Submission submissions = 3;
+  }
+
+  message Submission {
+    string id = 1;
+    string student_id = 2;
+    google.protobuf.Timestamp submission_date = 3;
+    string payload = 4;
+    string assignment_short_name = 5;
+    SubmissionState state = 6;
+  }
+}

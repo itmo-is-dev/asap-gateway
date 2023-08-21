@@ -11,7 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="MessagePack.Annotations" />
       <PackageReference Include="ronimizy.FluentSerialization" />
     </ItemGroup>
+
+
 
 </Project>

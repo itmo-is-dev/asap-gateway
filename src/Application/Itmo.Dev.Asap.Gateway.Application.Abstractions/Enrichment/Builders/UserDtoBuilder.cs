@@ -4,12 +4,13 @@ namespace Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment.Builders;
 
 public class UserDtoBuilder : IEntityBuilder<string, UserDto>
 {
-    public UserDtoBuilder(string id, string firstName, string middleName, string lastName)
+    public UserDtoBuilder(string id, string firstName, string middleName, string lastName, int? universityId)
     {
         Id = id;
         FirstName = firstName;
         MiddleName = middleName;
         LastName = lastName;
+        UniversityId = universityId;
     }
 
     public string Id { get; }
@@ -20,6 +21,8 @@ public class UserDtoBuilder : IEntityBuilder<string, UserDto>
 
     public string LastName { get; }
 
+    public int? UniversityId { get; }
+
     public string? GithubUsername { get; set; }
 
     public UserDto Build()
@@ -29,6 +32,7 @@ public class UserDtoBuilder : IEntityBuilder<string, UserDto>
             FirstName,
             MiddleName,
             LastName,
+            UniversityId,
             GithubUsername);
     }
 }

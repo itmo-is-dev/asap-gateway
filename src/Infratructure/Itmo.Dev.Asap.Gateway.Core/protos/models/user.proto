@@ -1,9 +1,12 @@
 syntax = "proto3";
 option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
 
+import "google/protobuf/wrappers.proto";
+
 message User {
   string id = 1;
   string first_name = 2;
   string middle_name = 3;
   string last_name = 4;
+  google.protobuf.Int32Value university_id = 5;
 }
