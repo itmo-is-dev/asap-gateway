@@ -4,7 +4,7 @@ namespace Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment.Builders;
 
 public class StudentDtoBuilder : IEntityBuilder<string, StudentDto>
 {
-    public StudentDtoBuilder(UserDtoBuilder user, Guid groupId, string groupName, int? universityId)
+    public StudentDtoBuilder(UserDtoBuilder user, Guid groupId, string groupName)
     {
         Id = user.Id;
         User = user;
