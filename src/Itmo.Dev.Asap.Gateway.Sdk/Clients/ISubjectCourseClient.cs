@@ -38,7 +38,7 @@ public interface ISubjectCourseClient
         Guid subjectCourseId,
         CancellationToken cancellationToken);
 
-    [Get("/api/subjectCourses/{subjectCourseId}/groups/{studentGroupId}/queue")]
+    [Get("/api/subjectCourse/{subjectCourseId}/groups/{studentGroupId}/queue")]
     Task<IApiResponse<SubmissionsQueueDto>> GetStudentGroupQueueAsync(
         Guid subjectCourseId,
         Guid studentGroupId,
