@@ -6,10 +6,6 @@ import "models/submission.proto";
 
 message GroupSubmissionQueue {
   string group_name = 1;
-  repeated QueueSubmission submissions = 2;
-}
-
-message QueueSubmission {
-  Student student = 1;
-  Submission submission = 2;
+  repeated Student students = 2;
+  repeated Submission submissions = 3;
 }

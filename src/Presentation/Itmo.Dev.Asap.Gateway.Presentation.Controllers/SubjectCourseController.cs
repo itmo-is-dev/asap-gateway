@@ -184,21 +184,17 @@ public class SubjectCourseController : ControllerBase
         GetStudentGroupQueueResponse response = await _subjectCourseClient
             .GetStudentGroupQueueAsync(request, cancellationToken: cancellationToken);
 
-        IEnumerable<StudentDtoBuilder> studentBuilders = response.Queue.Submissions
-            .Select(x => x.Student)
+        IEnumerable<StudentDtoBuilder> studentBuilders = response.Queue.Students
             .DistinctBy(x => x.User.Id)
             .Select(x => x.MapToBuilder());
 
         IEnumerable<StudentDto> students = await _studentProcessor.EnrichAsync(studentBuilders, cancellationToken);
-        var studentsDictionary = students.ToDictionary(x => x.User.Id);
+        IEnumerable<SubmissionDto> submissions = response.Queue.Submissions.Select(x => x.ToDto());
 
-        QueueSubmissionDto[] submissions = response.Queue.Submissions
-            .Select(x => new QueueSubmissionDto(
-                studentsDictionary[Guid.Parse(x.Student.User.Id)],
-                x.Submission.ToDto()))
-            .ToArray();
-
-        var queue = new SubmissionsQueueDto(response.Queue.GroupName, submissions);
+        var queue = new SubmissionsQueueDto(
+            response.Queue.GroupName,
+            students.ToArray(),
+            submissions.ToArray());
 
         return Ok(queue);
     }
