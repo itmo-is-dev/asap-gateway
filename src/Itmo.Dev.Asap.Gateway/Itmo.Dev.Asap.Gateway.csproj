@@ -23,6 +23,7 @@
         <ProjectReference Include="..\Application\Itmo.Dev.Asap.Gateway.Application\Itmo.Dev.Asap.Gateway.Application.csproj"/>
         <ProjectReference Include="..\Infrastructure\Itmo.Dev.Asap.Gateway.Google\Itmo.Dev.Asap.Gateway.Google.csproj"/>
         <ProjectReference Include="..\Presentation\Itmo.Dev.Asap.Gateway.Presentation.Controllers\Itmo.Dev.Asap.Gateway.Presentation.Controllers.csproj"/>
+        <ProjectReference Include="..\Presentation\Itmo.Dev.Asap.Gateway.Presentation.SignalR\Itmo.Dev.Asap.Gateway.Presentation.SignalR.csproj" />
     </ItemGroup>
 
 

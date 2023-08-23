@@ -13,6 +13,7 @@ using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Tools;
 using Itmo.Dev.Asap.Gateway.Presentation.Authentication.Extensions;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Extensions;
+using Itmo.Dev.Asap.Gateway.Presentation.SignalR.Extensions;
 using SerializationConfigurationBuilder = FluentSerialization.ConfigurationBuilder;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,8 @@ builder.Services
         .ApplyToSerializationSettings(options.SerializerSettings))
     .AddPresentationControllers();
 
+builder.Services.AddSignalrPresentation();
+
 builder.Services.AddCors(o => o.AddDefaultPolicy(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 builder.Services.AddSwaggerConfiguration();
 
@@ -48,5 +51,6 @@ app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseSignalrPresentation();
 
 await app.RunAsync();

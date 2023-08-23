@@ -33,7 +33,7 @@ public class QueueBackgroundService : BackgroundService
                 await using AsyncServiceScope scope = _scopeFactory.CreateAsyncScope();
                 await ExecuteSingleAsync(scope.ServiceProvider, stoppingToken);
             }
-            catch (Exception e)
+            catch (Exception e) when (e is not OperationCanceledException)
             {
                 _logger.LogError(e, "Error while listening to queue updates");
             }

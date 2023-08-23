@@ -30,7 +30,11 @@ internal class QueueClient : IQueueClient, IAsyncDisposable
                 new Uri(options.Value.Uri, "hubs/queue"),
                 o =>
                 {
-                    o.AccessTokenProvider = async () => await tokenProvider.FindTokenAsync(default);
+                    o.AccessTokenProvider = async () =>
+                    {
+                        string? token = await tokenProvider.FindTokenAsync(default);
+                        return token is null ? null : $"Bearer {token}";
+                    };
                 })
             .Build();
 
