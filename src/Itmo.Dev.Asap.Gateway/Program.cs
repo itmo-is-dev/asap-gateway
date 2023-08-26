@@ -14,10 +14,14 @@ using Itmo.Dev.Asap.Gateway.Presentation.Authentication.Extensions;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Extensions;
 using Itmo.Dev.Asap.Gateway.Presentation.SignalR.Extensions;
+using Itmo.Dev.Platform.Logging.Extensions;
+using Itmo.Dev.Platform.YandexCloud.Extensions;
 using SerializationConfigurationBuilder = FluentSerialization.ConfigurationBuilder;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("features.json");
+
+await builder.AddYandexCloudConfigurationAsync();
 
 builder.Services
     .AddApplication()
@@ -41,12 +45,16 @@ builder.Services.AddSignalrPresentation();
 builder.Services.AddCors(o => o.AddDefaultPolicy(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 builder.Services.AddSwaggerConfiguration();
 
+builder.AddPlatformSentry();
+builder.Host.AddPlatformSerilog(builder.Configuration);
+
 WebApplication app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseRouting();
+app.UsePlatformSentryTracing(builder.Configuration);
 app.UseCors();
 app.UseAuthorization();
 
