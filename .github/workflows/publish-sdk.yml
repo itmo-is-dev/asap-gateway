@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       cache-key: ${{ steps.create-cache-keys.outputs.cache-key }}
+    permissions: 
+      packages: read
     
     steps:
       - uses: actions/checkout@v2
@@ -46,6 +48,10 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/*.Packages.props', '**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
+            
+      - name: configure GitHub nuget repository
+        run: |
+          dotnet nuget add source --username ronimizy --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/itmo-is-dev/index.json"
 
       - name: restore
         if: ${{ steps.cache-packages.outputs.cache-hit != 'true' }}
