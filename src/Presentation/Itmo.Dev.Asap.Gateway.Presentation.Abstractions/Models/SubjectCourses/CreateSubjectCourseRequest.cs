@@ -11,6 +11,6 @@ public record CreateSubjectCourseRequest(
 public abstract record CreateSubjectCourseArgs;
 
 public sealed record CreateSubjectCourseGithubArgs(
-    string OrganizationName,
-    string TemplateRepositoryName,
-    string MentorTeamName) : CreateSubjectCourseArgs;
+    long OrganizationId,
+    long TemplateRepositoryId,
+    long MentorTeamId) : CreateSubjectCourseArgs;

@@ -1,0 +1,38 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Github.Search";
+
+import "models/github_organization.proto";
+import "models/github_repository.proto";
+import "models/github_team.proto";
+
+service GithubSearchService {
+  rpc SearchOrganizations(SearchOrganizationsRequest) returns (SearchOrganizationsResponse);
+  rpc SearchRepositories(SearchRepositoriesRequest) returns (SearchRepositoriesResponse);
+  rpc SearchTeams(SearchTeamsRequest) returns (SearchTeamsResponse);
+}
+
+message SearchOrganizationsRequest {
+  string query = 1;
+}
+
+message SearchOrganizationsResponse {
+  repeated GithubOrganization organizations = 1;
+}
+
+message SearchRepositoriesRequest {
+  int64 organization_id = 1;
+  string query = 2;
+}
+
+message SearchRepositoriesResponse {
+  repeated GithubRepository repositories = 1;
+}
+
+message SearchTeamsRequest {
+  int64 organization_id = 1;
+  string query = 2;
+}
+
+message SearchTeamsResponse {
+  repeated GithubTeam teams = 1;
+}

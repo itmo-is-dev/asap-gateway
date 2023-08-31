@@ -39,9 +39,9 @@ public class GithubManagementController : ControllerBase
 
     [HttpPost("force-mentor-sync")]
     [AuthorizeFeature(Scope, nameof(ForceMentorSync))]
-    public async Task<ActionResult> ForceMentorSync(string organizationName, CancellationToken cancellationToken)
+    public async Task<ActionResult> ForceMentorSync(long organizationId, CancellationToken cancellationToken)
     {
-        var request = new ForceMentorSyncRequest { OrganizationName = organizationName };
+        var request = new ForceMentorSyncRequest { OrganizationId = organizationId };
         await _client.ForceMentorSyncAsync(request, cancellationToken: cancellationToken);
 
         return Ok();

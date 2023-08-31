@@ -6,7 +6,7 @@ using Riok.Mapperly.Abstractions;
 
 namespace Itmo.Dev.Asap.Gateway.Core.Mapping;
 
-[Mapper]
+[Mapper(EnumMappingStrategy = EnumMappingStrategy.ByName)]
 public static partial class ProtoMapper
 {
     public static partial AssignmentDto ToDto(this Assignment assignment);
