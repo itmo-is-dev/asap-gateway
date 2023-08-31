@@ -19,16 +19,6 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddGithubGrpcClients(this IServiceCollection collection)
     {
-        static void ConfigureAddress(IServiceProvider sp, GrpcClientFactoryOptions o)
-        {
-            IOptionsMonitor<GrpcClientOptions> monitor = sp
-                .GetRequiredService<IOptionsMonitor<GrpcClientOptions>>();
-
-            GrpcClientOptions options = monitor.Get("asap-github");
-
-            o.Address = options.Uri;
-        }
-
         collection.TryAddEnumerable(
             ServiceDescriptor.Scoped<IEntityEnricher<string, UserDtoBuilder, UserDto>, GithubUserEnricher>());
 
@@ -38,18 +28,26 @@ public static class ServiceCollectionExtensions
         collection.TryAddEnumerable(ServiceDescriptor
             .Scoped<IEntityEnricher<string, SubjectCourseDtoBuilder, SubjectCourseDto>, GithubSubjectCourseEnricher>());
 
-        collection
-            .AddGrpcClient<GithubManagementService.GithubManagementServiceClient>(ConfigureAddress)
-            .AddInterceptor<AuthenticationInterceptor>(InterceptorScope.Client);
-
-        collection
-            .AddGrpcClient<GithubSubjectCourseService.GithubSubjectCourseServiceClient>(ConfigureAddress)
-            .AddInterceptor<AuthenticationInterceptor>(InterceptorScope.Client);
-
-        collection
-            .AddGrpcClient<GithubUserService.GithubUserServiceClient>(ConfigureAddress)
-            .AddInterceptor<AuthenticationInterceptor>(InterceptorScope.Client);
+        AddClient<GithubManagementService.GithubManagementServiceClient>();
+        AddClient<GithubSubjectCourseService.GithubSubjectCourseServiceClient>();
+        AddClient<GithubUserService.GithubUserServiceClient>();
+        AddClient<GithubSubjectCourseService.GithubSubjectCourseServiceClient>();
 
         return collection;
+
+        void AddClient<TClient>() where TClient : class
+        {
+            collection
+                .AddGrpcClient<TClient>((sp, o) =>
+                {
+                    IOptionsMonitor<GrpcClientOptions> monitor = sp
+                        .GetRequiredService<IOptionsMonitor<GrpcClientOptions>>();
+
+                    GrpcClientOptions options = monitor.Get("asap-github");
+
+                    o.Address = options.Uri;
+                })
+                .AddInterceptor<AuthenticationInterceptor>(InterceptorScope.Client);
+        }
     }
 }
