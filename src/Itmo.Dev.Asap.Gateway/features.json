@@ -156,10 +156,10 @@
         "ForceSyncPoints": [
           "admin"
         ],
-        "GithubCreate" : [
+        "GithubCreate": [
           "admin"
         ],
-        "GithubUpdateMentorsTeam" : [
+        "GithubUpdateMentorsTeam": [
           "admin",
           "moderator",
           "mentor"
@@ -189,17 +189,34 @@
         "QueryIdentityInfo": [
           "admin"
         ],
-        "GithubUpdateUsername" : [
+        "GithubUpdateUsername": [
           "admin"
         ]
       },
-      "Queue" : {
-        "SubscribeToQueueUpdates" : [
+      "Queue": {
+        "SubscribeToQueueUpdates": [
           "admin",
           "moderator",
           "mentor"
         ],
-        "UnsubscribeFromQueueUpdates" : [
+        "UnsubscribeFromQueueUpdates": [
+          "admin",
+          "moderator",
+          "mentor"
+        ]
+      },
+      "GithubSearch": {
+        "SearchGithubOrganizations": [
+          "admin",
+          "moderator",
+          "mentor"
+        ],
+        "SearchGithubRepositories": [
+          "admin",
+          "moderator",
+          "mentor"
+        ],
+        "SearchGithubTeams": [
           "admin",
           "moderator",
           "mentor"
