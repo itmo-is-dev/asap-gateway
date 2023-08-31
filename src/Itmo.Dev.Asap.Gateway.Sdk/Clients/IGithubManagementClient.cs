@@ -8,5 +8,5 @@ public interface IGithubManagementClient
     Task<IApiResponse> ForceOrganizationUpdateAsync([Query] Guid subjectCourseId, CancellationToken cancellationToken);
 
     [Post("/api/githubManagement/force-mentor-sync")]
-    Task<IApiResponse> ForceMentorSyncAsync(string organizationName, CancellationToken cancellationToken);
+    Task<IApiResponse> ForceMentorSyncAsync(long organizationId, CancellationToken cancellationToken);
 }

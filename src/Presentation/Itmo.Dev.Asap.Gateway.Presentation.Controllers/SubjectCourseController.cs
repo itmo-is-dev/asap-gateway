@@ -50,9 +50,9 @@ public class SubjectCourseController : ControllerBase
             var githubRequest = new ProvisionSubjectCourseRequest
             {
                 CorrelationId = correlationId,
-                MentorTeamName = githubArgs.MentorTeamName,
-                OrganizationName = githubArgs.OrganizationName,
-                TemplateRepositoryName = githubArgs.TemplateRepositoryName,
+                MentorTeamId = githubArgs.MentorTeamId,
+                OrganizationId = githubArgs.OrganizationId,
+                TemplateRepositoryId = githubArgs.TemplateRepositoryId,
             };
 
             await _githubSubjectCourseClient
@@ -238,7 +238,7 @@ public class SubjectCourseController : ControllerBase
         var grpcRequest = new UpdateMentorTeamRequest
         {
             SubjectCourseId = subjectCourseId.ToString(),
-            MentorsTeamName = request.TeamName,
+            MentorTeamId = request.TeamId,
         };
 
         await _githubSubjectCourseClient.UpdateMentorTeamAsync(grpcRequest, cancellationToken: cancellationToken);

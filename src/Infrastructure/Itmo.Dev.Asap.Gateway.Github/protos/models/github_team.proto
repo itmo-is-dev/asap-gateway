@@ -1,0 +1,7 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Github.Models";
+
+message GithubTeam {
+  int64 id = 1;
+  string name = 2;
+}

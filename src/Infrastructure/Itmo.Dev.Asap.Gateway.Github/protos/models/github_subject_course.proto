@@ -3,7 +3,10 @@ option csharp_namespace = "Itmo.Dev.Asap.Github.Models";
 
 message GithubSubjectCourse {
   string id = 1;
-  string organization_name = 2;
-  string template_repository_name = 3;
-  string mentor_team_name = 4;
+  int64 organization_id = 2;
+  string organization_name = 3;
+  int64 template_repository_id = 4;
+  string template_repository_name = 5;
+  int64 mentor_team_id = 6;
+  string mentor_team_name = 7;
 }
