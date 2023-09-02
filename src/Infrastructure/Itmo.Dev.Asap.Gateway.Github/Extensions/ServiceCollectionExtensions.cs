@@ -7,6 +7,7 @@ using Itmo.Dev.Asap.Gateway.Github.Enrichers;
 using Itmo.Dev.Asap.Gateway.Grpc.Interceptors;
 using Itmo.Dev.Asap.Gateway.Grpc.Tools;
 using Itmo.Dev.Asap.Github;
+using Itmo.Dev.Asap.Github.Search;
 using Itmo.Dev.Asap.Github.SubjectCourses;
 using Itmo.Dev.Asap.Github.Users;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,7 @@ public static class ServiceCollectionExtensions
         AddClient<GithubSubjectCourseService.GithubSubjectCourseServiceClient>();
         AddClient<GithubUserService.GithubUserServiceClient>();
         AddClient<GithubSubjectCourseService.GithubSubjectCourseServiceClient>();
+        AddClient<GithubSearchService.GithubSearchServiceClient>();
 
         return collection;
 
