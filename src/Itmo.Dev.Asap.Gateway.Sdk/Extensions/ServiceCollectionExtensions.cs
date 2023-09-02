@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
 
         AddClient<IAssignmentClient>();
         AddClient<IGithubManagementClient>();
+        AddClient<IGithubSearchClient>();
         AddClient<IIdentityClient>();
         AddClient<IStudentClient>();
         AddClient<IStudentGroupClient>();
