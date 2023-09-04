@@ -49,8 +49,9 @@ message GetStudentsResponse {
 message QueryStudentGroupRequest {
   google.protobuf.StringValue page_token = 1;
   int32 page_size = 2;
-  
+
   repeated string name_patterns = 3;
+  repeated string excluded_subject_course_ids = 4;
 }
 
 message QueryStudentGroupResponse {
