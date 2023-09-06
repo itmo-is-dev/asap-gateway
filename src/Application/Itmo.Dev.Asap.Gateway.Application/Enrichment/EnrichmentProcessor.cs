@@ -24,7 +24,7 @@ public class EnrichmentProcessor<TIdentifier, TBuilder, TEntity> : IEnrichmentPr
     {
         var context = new EnrichmentContext<TIdentifier, TBuilder, TEntity>(builders);
 
-        foreach (IEntityEnricher<TIdentifier, TBuilder, TEntity> enricher in _enrichers)
+        IEnumerable<Task> enrichmentTasks = _enrichers.Select(async enricher =>
         {
             try
             {
@@ -34,7 +34,9 @@ public class EnrichmentProcessor<TIdentifier, TBuilder, TEntity> : IEnrichmentPr
             {
                 _logger.LogWarning(e, "Failed enrich entity");
             }
-        }
+        });
+
+        await Task.WhenAll(enrichmentTasks);
 
         return context.Builders.Select(x => x.Build());
     }
