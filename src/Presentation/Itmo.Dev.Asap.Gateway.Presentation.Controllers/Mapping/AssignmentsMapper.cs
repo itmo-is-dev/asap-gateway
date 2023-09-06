@@ -1,5 +1,5 @@
 using Itmo.Dev.Asap.Core.Assignments;
-using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models;
+using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Assignments;
 using Riok.Mapperly.Abstractions;
 
 namespace Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;

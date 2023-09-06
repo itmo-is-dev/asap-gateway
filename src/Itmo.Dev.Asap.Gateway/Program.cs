@@ -58,6 +58,8 @@ app.UsePlatformSentryTracing(builder.Configuration);
 app.UseCors();
 app.UseAuthorization();
 
+app.AddControllersMiddleware();
+
 app.MapControllers();
 app.UseSignalrPresentation();
 

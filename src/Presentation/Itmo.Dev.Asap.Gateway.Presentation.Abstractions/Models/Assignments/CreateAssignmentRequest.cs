@@ -1,4 +1,4 @@
-namespace Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models;
+namespace Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Assignments;
 
 public record CreateAssignmentRequest(
     Guid SubjectCourseId,

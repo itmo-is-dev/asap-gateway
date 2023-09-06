@@ -1,5 +1,5 @@
 using Itmo.Dev.Asap.Gateway.Application.Dto.Study;
-using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models;
+using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Assignments;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.GroupAssignments;
 using Refit;
 
@@ -18,8 +18,8 @@ public interface IAssignmentClient
     [Patch("/api/assignments/{assignmentId}")]
     Task<IApiResponse<AssignmentDto>> UpdatePointsAsync(
         Guid assignmentId,
-        [Query] double minPoints,
-        [Query] double maxPoints,
+        [Query] double? minPoints,
+        [Query] double? maxPoints,
         CancellationToken cancellationToken);
 
     [Get("/api/assignments/{assignmentId}/groups")]

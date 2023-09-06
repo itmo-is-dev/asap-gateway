@@ -2,7 +2,7 @@ using Google.Protobuf.WellKnownTypes;
 using Itmo.Dev.Asap.Core.Assignments;
 using Itmo.Dev.Asap.Gateway.Application.Dto.Study;
 using Itmo.Dev.Asap.Gateway.Core.Mapping;
-using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models;
+using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Assignments;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;
 using Microsoft.AspNetCore.Mvc;
@@ -61,9 +61,8 @@ public class AssignmentsController : ControllerBase
     [AuthorizeFeature(Scope, nameof(UpdatePoints))]
     public async Task<ActionResult<AssignmentDto>> UpdatePoints(
         Guid id,
-        double minPoints,
-        double maxPoints,
-        CancellationToken cancellationToken)
+        double? minPoints = null,
+        double? maxPoints = null)
     {
         var request = new UpdatePointsRequest
         {
@@ -73,7 +72,7 @@ public class AssignmentsController : ControllerBase
         };
 
         UpdatePointsResponse response = await _assignmentsClient
-            .UpdatePointsAsync(request, cancellationToken: cancellationToken);
+            .UpdatePointsAsync(request, cancellationToken: HttpContext.RequestAborted);
 
         AssignmentDto assignment = response.Assignment.ToDto();
 

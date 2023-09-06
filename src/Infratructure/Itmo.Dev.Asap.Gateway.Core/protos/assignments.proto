@@ -2,6 +2,7 @@ syntax = "proto3";
 option csharp_namespace = "Itmo.Dev.Asap.Core.Assignments";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 import "models/assignment.proto";
 import "models/group_assignment.proto";
 
@@ -36,8 +37,8 @@ message GetByIdResponse {
 
 message UpdatePointsRequest {
   string assignment_id = 1;
-  double min_points = 2;
-  double max_points = 3;
+  google.protobuf.DoubleValue min_points = 2;
+  google.protobuf.DoubleValue max_points = 3;
 }
 
 message UpdatePointsResponse {
