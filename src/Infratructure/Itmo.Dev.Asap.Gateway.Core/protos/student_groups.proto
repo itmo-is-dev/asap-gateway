@@ -52,6 +52,7 @@ message QueryStudentGroupRequest {
 
   repeated string name_patterns = 3;
   repeated string excluded_subject_course_ids = 4;
+  repeated string excluded_ids = 5;
 }
 
 message QueryStudentGroupResponse {
