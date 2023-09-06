@@ -9,6 +9,7 @@ using Itmo.Dev.Asap.Gateway.Extensions;
 using Itmo.Dev.Asap.Gateway.Github.Extensions;
 using Itmo.Dev.Asap.Gateway.Google.Extensions;
 using Itmo.Dev.Asap.Gateway.Grpc.Extensions;
+using Itmo.Dev.Asap.Gateway.Middlewares;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Tools;
 using Itmo.Dev.Asap.Gateway.Presentation.Authentication.Extensions;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
@@ -48,6 +49,8 @@ builder.Services.AddSwaggerConfiguration();
 builder.AddPlatformSentry();
 builder.Host.AddPlatformSerilog(builder.Configuration);
 
+builder.Services.AddSingleton<GrpcExceptionMiddleware>();
+
 WebApplication app = builder.Build();
 
 app.UseSwagger();
@@ -58,7 +61,7 @@ app.UsePlatformSentryTracing(builder.Configuration);
 app.UseCors();
 app.UseAuthorization();
 
-app.AddControllersMiddleware();
+app.UseMiddleware<GrpcExceptionMiddleware>();
 
 app.MapControllers();
 app.UseSignalrPresentation();

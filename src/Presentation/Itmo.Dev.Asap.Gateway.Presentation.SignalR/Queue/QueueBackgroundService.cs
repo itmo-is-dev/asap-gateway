@@ -26,16 +26,23 @@ public class QueueBackgroundService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        int retryCount = 0;
+
         while (stoppingToken.IsCancellationRequested is false)
         {
             try
             {
                 await using AsyncServiceScope scope = _scopeFactory.CreateAsyncScope();
                 await ExecuteSingleAsync(scope.ServiceProvider, stoppingToken);
+
+                retryCount = 0;
             }
             catch (Exception e) when (e is not OperationCanceledException)
             {
                 _logger.LogError(e, "Error while listening to queue updates");
+
+                retryCount++;
+                await Task.Delay(TimeSpan.FromSeconds(retryCount), stoppingToken);
             }
         }
     }

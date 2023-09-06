@@ -2,10 +2,17 @@ using Grpc.Core;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models;
 using System.Net;
 
-namespace Itmo.Dev.Asap.Gateway.Presentation.Controllers.Middlewares;
+namespace Itmo.Dev.Asap.Gateway.Middlewares;
 
 public class GrpcExceptionMiddleware : IMiddleware
 {
+    private readonly ILogger<GrpcExceptionMiddleware> _logger;
+
+    public GrpcExceptionMiddleware(ILogger<GrpcExceptionMiddleware> logger)
+    {
+        _logger = logger;
+    }
+
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
@@ -35,6 +42,11 @@ public class GrpcExceptionMiddleware : IMiddleware
                 StatusCode.Aborted => HttpStatusCode.InternalServerError,
                 _ => HttpStatusCode.InternalServerError,
             };
+
+            if (code is HttpStatusCode.InternalServerError)
+            {
+                _logger.LogError(e, "Failed to execute grpc request");
+            }
 
             var details = new ErrorDetails(e.Status.Detail);
 
