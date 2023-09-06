@@ -27,12 +27,12 @@ public interface IStudentGroupClient
         [Body] UpdateStudentGroupRequest request,
         CancellationToken cancellationToken);
 
-    [Get("/api/studentGroups/{groupId}/student")]
+    [Get("/api/studentGroup/{groupId}/student")]
     Task<IApiResponse<IReadOnlyCollection<StudentDto>>> GetStudentsAsync(
         Guid groupId,
         CancellationToken cancellationToken);
 
-    [Post("/api/studentGroups/query")]
+    [Post("/api/studentGroup/query")]
     Task<IApiResponse<QueryStudentGroupResponse>> QueryAsync(
         [Body] QueryStudentGroupRequest request,
         CancellationToken cancellationToken);
