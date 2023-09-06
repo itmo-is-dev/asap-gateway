@@ -5,6 +5,7 @@ on:
     branches: [ master ]
     paths:
       - 'src/Itmo.Dev.Asap.Gateway.Sdk/**'
+      - 'src/Presentation/Itmo.Dev.Asap.Gateway.Presentation.Abstractions/**'
       - '.github/workflows/publish-sdk.yml'
       - '*.props'
 
