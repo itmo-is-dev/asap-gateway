@@ -33,7 +33,7 @@ public class GrpcExceptionMiddleware : IMiddleware
                 StatusCode.Cancelled => HttpStatusCode.InternalServerError,
                 StatusCode.Unknown => HttpStatusCode.InternalServerError,
                 StatusCode.Aborted => HttpStatusCode.InternalServerError,
-                _ => throw new ArgumentOutOfRangeException(),
+                _ => HttpStatusCode.InternalServerError,
             };
 
             var details = new ErrorDetails(e.Status.Detail);
