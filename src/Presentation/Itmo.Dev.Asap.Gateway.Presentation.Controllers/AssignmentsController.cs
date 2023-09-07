@@ -111,7 +111,7 @@ public class AssignmentsController : ControllerBase
         {
             AssignmentId = assignmentId.ToString(),
             GroupId = groupId.ToString(),
-            Deadline = Timestamp.FromDateTime(request.Deadline),
+            Deadline = Timestamp.FromDateTime(DateTime.SpecifyKind(request.Deadline, DateTimeKind.Utc)),
         };
 
         UpdateGroupAssignmentResponse response = await _assignmentsClient
