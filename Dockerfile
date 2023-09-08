@@ -17,6 +17,7 @@ RUN dotnet publish "Itmo.Dev.Asap.Gateway.csproj" -c Release -o /app/publish /p:
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0.5 AS final
 WORKDIR /app
+EXPOSE 8000
 COPY --from=publish /app/publish .
 ENV ASPNETCORE_URLS=http://0.0.0.0:8000
 ENTRYPOINT ["dotnet", "Itmo.Dev.Asap.Gateway.dll"]
