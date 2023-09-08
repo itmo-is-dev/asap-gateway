@@ -5,4 +5,5 @@ public record QueryStudentRequest(
     int PageSize,
     IEnumerable<string> NamePatterns,
     IEnumerable<string> GroupNamePatterns,
-    IEnumerable<int> UniversityIds);
+    IEnumerable<int> UniversityIds,
+    IEnumerable<string> GithubUsernamePatterns);

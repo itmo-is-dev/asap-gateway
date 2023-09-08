@@ -84,15 +84,31 @@ public class StudentController : ControllerBase
         [FromBody] QueryStudentRequest request,
         CancellationToken cancellationToken)
     {
+        var result = new List<StudentDto>();
+
         Asap.Core.Students.QueryStudentRequest grpcRequest = request.ToProto();
 
-        Asap.Core.Students.QueryStudentResponse grpcResponse = await _studentClient
-            .QueryAsync(grpcRequest, cancellationToken: cancellationToken);
+        while (result.Count < request.PageSize)
+        {
+            Asap.Core.Students.QueryStudentResponse grpcResponse = await _studentClient
+                .QueryAsync(grpcRequest, cancellationToken: cancellationToken);
 
-        IEnumerable<StudentDtoBuilder> builders = grpcResponse.Students.Select(x => x.MapToBuilder());
-        IEnumerable<StudentDto> students = await _enrichmentProcessor.EnrichAsync(builders, cancellationToken);
+            grpcRequest.PageToken = grpcResponse.PageToken;
 
-        var response = new QueryStudentResponse(grpcResponse.PageToken, students);
+            if (grpcResponse.PageToken is null)
+                break;
+
+            IEnumerable<StudentDtoBuilder> builders = grpcResponse.Students.Select(x => x.MapToBuilder());
+            IEnumerable<StudentDto> students = await _enrichmentProcessor.EnrichAsync(builders, cancellationToken);
+
+            students = students.Where(
+                s => request.GithubUsernamePatterns.Any(
+                    u => s.User.GithubUsername?.Contains(u, StringComparison.OrdinalIgnoreCase) is true));
+
+            result.AddRange(students);
+        }
+
+        var response = new QueryStudentResponse(grpcRequest.PageToken, result);
 
         return Ok(response);
     }
