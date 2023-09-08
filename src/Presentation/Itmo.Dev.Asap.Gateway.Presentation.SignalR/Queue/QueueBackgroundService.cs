@@ -37,7 +37,7 @@ public class QueueBackgroundService : BackgroundService
 
                 retryCount = 0;
             }
-            catch (Exception e) when (e is not OperationCanceledException)
+            catch (Exception e) when (e is not OperationCanceledException and not RpcException { StatusCode: StatusCode.Cancelled })
             {
                 _logger.LogError(e, "Error while listening to queue updates");
 
