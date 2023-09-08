@@ -12,7 +12,7 @@ public interface IStudentClient
         CancellationToken cancellationToken);
 
     [Put("/api/student/{studentId}/dismiss")]
-    Task<IApiResponse> DismissFromGroupAsync(Guid studentId, CancellationToken cancellationToken);
+    Task<IApiResponse<StudentDto>> DismissFromGroupAsync(Guid studentId, CancellationToken cancellationToken);
 
     [Put("/api/student/{studentId}/group")]
     Task<IApiResponse<StudentDto>> TransferToGroupAsync(

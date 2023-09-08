@@ -14,4 +14,7 @@ public static partial class StudentMapper
 
     [MapProperty(nameof(Student.User), "user")]
     public static partial StudentDtoBuilder MapToBuilder(this Student student);
+
+    private static Guid? MapToGuid(string? str)
+        => string.IsNullOrEmpty(str) ? null : Guid.Parse(str);
 }

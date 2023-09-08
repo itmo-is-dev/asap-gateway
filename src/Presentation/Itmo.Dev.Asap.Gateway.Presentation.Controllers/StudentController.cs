@@ -48,12 +48,17 @@ public class StudentController : ControllerBase
 
     [HttpPut("{id:guid}/dismiss")]
     [AuthorizeFeature(Scope, nameof(DismissFromGroup))]
-    public async Task<ActionResult> DismissFromGroup(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<StudentDto>> DismissFromGroup(Guid id, CancellationToken cancellationToken)
     {
         var request = new DismissFromGroupRequest { StudentId = id.ToString() };
-        await _studentClient.DismissFromGroupAsync(request, cancellationToken: cancellationToken);
 
-        return Ok();
+        DismissFromGroupResponse response = await _studentClient
+            .DismissFromGroupAsync(request, cancellationToken: cancellationToken);
+
+        StudentDtoBuilder[] builders = { response.Student.MapToBuilder() };
+        IEnumerable<StudentDto> students = await _enrichmentProcessor.EnrichAsync(builders, cancellationToken);
+
+        return Ok(students.Single());
     }
 
     [HttpPut("{id:guid}/group")]

@@ -7,7 +7,7 @@ import "models/student.proto";
 
 service StudentService {
   rpc Create(CreateStudentRequest) returns (CreateStudentResponse);
-  rpc DismissFromGroup(DismissFromGroupRequest) returns (google.protobuf.Empty);
+  rpc DismissFromGroup(DismissFromGroupRequest) returns (DismissFromGroupResponse);
   rpc Transfer(TransferStudentRequest) returns (TransferStudentResponse);
   rpc Query(QueryStudentRequest) returns (QueryStudentResponse);
 }
@@ -25,6 +25,10 @@ message CreateStudentResponse {
 
 message DismissFromGroupRequest {
   string student_id = 1;
+}
+
+message DismissFromGroupResponse {
+  Student student = 1;
 }
 
 message TransferStudentRequest {
