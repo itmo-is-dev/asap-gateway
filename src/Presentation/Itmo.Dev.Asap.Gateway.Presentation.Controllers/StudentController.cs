@@ -88,6 +88,8 @@ public class StudentController : ControllerBase
 
         Asap.Core.Students.QueryStudentRequest grpcRequest = request.ToProto();
 
+        string[] githubPatterns = request.GithubUsernamePatterns.ToArray();
+
         while (result.Count < request.PageSize)
         {
             Asap.Core.Students.QueryStudentResponse grpcResponse = await _studentClient
@@ -95,17 +97,20 @@ public class StudentController : ControllerBase
 
             grpcRequest.PageToken = grpcResponse.PageToken;
 
-            if (grpcResponse.PageToken is null)
-                break;
-
             IEnumerable<StudentDtoBuilder> builders = grpcResponse.Students.Select(x => x.MapToBuilder());
             IEnumerable<StudentDto> students = await _enrichmentProcessor.EnrichAsync(builders, cancellationToken);
 
-            students = students.Where(
-                s => request.GithubUsernamePatterns.Any(
-                    u => s.User.GithubUsername?.Contains(u, StringComparison.OrdinalIgnoreCase) is true));
+            if (githubPatterns is not [])
+            {
+                students = students.Where(
+                    s => githubPatterns.Any(
+                        u => s.User.GithubUsername?.Contains(u, StringComparison.OrdinalIgnoreCase) is true));
+            }
 
             result.AddRange(students);
+
+            if (grpcResponse.PageToken is null)
+                break;
         }
 
         var response = new QueryStudentResponse(grpcRequest.PageToken, result);
