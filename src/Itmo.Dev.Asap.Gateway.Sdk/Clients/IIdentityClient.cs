@@ -35,4 +35,7 @@ public interface IIdentityClient
 
     [Get("/api/identity/password/options")]
     Task<IApiResponse<PasswordOptionsDto>> GetPasswordOptionsAsync(CancellationToken cancellationToken);
+
+    [Get("/api/identity/roles")]
+    Task<IApiResponse<IReadOnlyCollection<string>>> GetRolesAsync(CancellationToken cancellationToken);
 }
