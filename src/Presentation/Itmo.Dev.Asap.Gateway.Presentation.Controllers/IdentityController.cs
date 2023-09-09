@@ -1,5 +1,9 @@
 using Itmo.Dev.Asap.Auth;
+using Itmo.Dev.Asap.Core.Users;
+using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment;
+using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment.Builders;
 using Itmo.Dev.Asap.Gateway.Application.Dto.Identity;
+using Itmo.Dev.Asap.Gateway.Application.Dto.Users;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Extensions;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;
@@ -23,10 +27,17 @@ public class IdentityController : ControllerBase
     private const string Scope = "Identity";
 
     private readonly IdentityService.IdentityServiceClient _identityClient;
+    private readonly UserService.UserServiceClient _userClient;
+    private readonly IEnrichmentProcessor<string, UserDtoBuilder, UserDto> _enrichmentProcessor;
 
-    public IdentityController(IdentityService.IdentityServiceClient identityClient)
+    public IdentityController(
+        IdentityService.IdentityServiceClient identityClient,
+        UserService.UserServiceClient userClient,
+        IEnrichmentProcessor<string, UserDtoBuilder, UserDto> enrichmentProcessor)
     {
         _identityClient = identityClient;
+        _userClient = userClient;
+        _enrichmentProcessor = enrichmentProcessor;
     }
 
     [HttpPost("login")]
@@ -69,7 +80,7 @@ public class IdentityController : ControllerBase
 
     [HttpPost("user/{id:guid}/account")]
     [AuthorizeFeature(Scope, nameof(CreateUserAccount))]
-    public async Task<IActionResult> CreateUserAccount(
+    public async Task<ActionResult<UserIdentityInfoDto>> CreateUserAccount(
         Guid id,
         [FromBody] CreateUserAccountRequest request,
         CancellationToken cancellationToken)
@@ -79,7 +90,20 @@ public class IdentityController : ControllerBase
 
         await _identityClient.CreateUserAccountAsync(grpcRequest, cancellationToken: cancellationToken);
 
-        return Ok();
+        var userRequest = new FindByIdRequest { UserId = grpcRequest.UserId };
+
+        FindByIdResponse? userResponse = await _userClient
+            .FindByIdAsync(userRequest, cancellationToken: cancellationToken);
+
+        if (userResponse.UserCase is not FindByIdResponse.UserOneofCase.UserValue)
+            return NotFound();
+
+        UserDtoBuilder[] builders = { userResponse.UserValue.ToBuilder() };
+        IEnumerable<UserDto> users = await _enrichmentProcessor.EnrichAsync(builders, cancellationToken);
+
+        var user = new UserIdentityInfoDto(users.Single(), true);
+
+        return Ok(user);
     }
 
     [Authorize]

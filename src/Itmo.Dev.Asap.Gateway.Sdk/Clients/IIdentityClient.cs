@@ -1,4 +1,5 @@
 using Itmo.Dev.Asap.Gateway.Application.Dto.Identity;
+using Itmo.Dev.Asap.Gateway.Application.Dto.Users;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Identity;
 using Refit;
 
@@ -18,7 +19,7 @@ public interface IIdentityClient
         CancellationToken cancellationToken);
 
     [Post("/api/identity/{userId}/account")]
-    Task<IApiResponse> CreateUserAccountAsync(
+    Task<IApiResponse<UserIdentityInfoDto>> CreateUserAccountAsync(
         Guid userId,
         [Body] CreateUserAccountRequest request,
         CancellationToken cancellationToken);
