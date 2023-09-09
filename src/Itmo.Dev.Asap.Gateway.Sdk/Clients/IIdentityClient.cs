@@ -18,7 +18,7 @@ public interface IIdentityClient
         [Query] string roleName,
         CancellationToken cancellationToken);
 
-    [Post("/api/identity/{userId}/account")]
+    [Post("/api/identity/user/{userId}/account")]
     Task<IApiResponse<UserIdentityInfoDto>> CreateUserAccountAsync(
         Guid userId,
         [Body] CreateUserAccountRequest request,
