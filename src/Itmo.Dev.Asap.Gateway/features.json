@@ -42,6 +42,10 @@
         "CreateUserAccount": [
           "admin",
           "moderator"
+        ],
+        "GetRoles": [
+          "admin",
+          "moderator"
         ]
       },
       "Internal": {

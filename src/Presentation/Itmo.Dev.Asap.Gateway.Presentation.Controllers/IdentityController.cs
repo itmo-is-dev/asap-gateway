@@ -133,4 +133,16 @@ public class IdentityController : ControllerBase
 
         return response.ToDto();
     }
+
+    [AuthorizeFeature(Scope, nameof(GetRoles))]
+    [HttpGet("roles")]
+    public async Task<ActionResult<IEnumerable<string>>> GetRoles(CancellationToken cancellationToken)
+    {
+        var request = new GetRoleNamesRequest();
+
+        GetRoleNamesResponse response = await _identityClient
+            .GetRoleNamesAsync(request, cancellationToken: cancellationToken);
+
+        return Ok(response.RoleName);
+    }
 }

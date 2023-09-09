@@ -13,6 +13,7 @@ service IdentityService {
   rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse);
   rpc GetPasswordOptions(GetPasswordOptionsRequest) returns (GetPasswordOptionsResponse);
   rpc FindUsers(FindUsersRequest) returns (FindUsersResponse);
+  rpc GetRoleNames(GetRoleNamesRequest) returns (GetRoleNamesResponse);
 }
 
 message LoginRequest {
@@ -81,4 +82,11 @@ message FindUsersRequest {
 
 message FindUsersResponse {
   repeated IdentityUser users = 2;
+}
+
+message GetRoleNamesRequest {
+}
+
+message GetRoleNamesResponse {
+  repeated string role_name = 1;
 }

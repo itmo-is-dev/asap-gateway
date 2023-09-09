@@ -2,7 +2,7 @@ name: "publish sdk"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, develop ]
     paths:
       - 'src/Itmo.Dev.Asap.Gateway.Sdk/**'
       - 'src/Presentation/Itmo.Dev.Asap.Gateway.Presentation.Abstractions/**'
