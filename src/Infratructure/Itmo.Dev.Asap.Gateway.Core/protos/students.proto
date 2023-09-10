@@ -13,10 +13,11 @@ service StudentService {
 }
 
 message CreateStudentRequest {
-  google.protobuf.StringValue first_name = 1;
-  google.protobuf.StringValue middle_name = 2;
-  google.protobuf.StringValue last_name = 3;
+  string first_name = 1;
+  string middle_name = 2;
+  string last_name = 3;
   string group_id = 4;
+  int32 university_id = 5;
 }
 
 message CreateStudentResponse {

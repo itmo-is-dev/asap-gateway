@@ -1,3 +1,8 @@
 namespace Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Students;
 
-public record CreateStudentRequest(string? FirstName, string? MiddleName, string? LastName, Guid GroupId);
+public record CreateStudentRequest(
+    string FirstName,
+    string MiddleName,
+    string LastName,
+    int UniversityId,
+    Guid GroupId);
