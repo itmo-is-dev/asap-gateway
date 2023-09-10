@@ -18,6 +18,10 @@ message FindByIdsResponse {
 }
 
 message UpdateUsernameRequest {
-  string user_id = 1;
-  string github_username = 2;
+  repeated Model models = 1;
+
+  message Model {
+    string user_id = 1;
+    string github_username = 2;
+  }
 }

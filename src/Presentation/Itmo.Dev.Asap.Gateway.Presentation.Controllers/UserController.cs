@@ -10,6 +10,7 @@ using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;
 using Itmo.Dev.Asap.Github.Users;
 using Microsoft.AspNetCore.Mvc;
 using UpdateNameRequest = Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Users.UpdateNameRequest;
+using UpdateUsernameRequest = Itmo.Dev.Asap.Github.Users.UpdateUsernameRequest;
 
 namespace Itmo.Dev.Asap.Gateway.Presentation.Controllers;
 
@@ -99,18 +100,12 @@ public class UserController : ControllerBase
     }
 
     [AuthorizeFeature(Scope, nameof(UpdateGithubUsername))]
-    [HttpPut("{userId:guid}/github/username")]
+    [HttpPut("/github/username")]
     public async Task<ActionResult> UpdateGithubUsername(
-        Guid userId,
         [FromBody] UpdateGithubUsernameRequest request,
         CancellationToken cancellationToken)
     {
-        var grpcRequest = new Asap.Github.Users.UpdateUsernameRequest
-        {
-            UserId = userId.ToString(),
-            GithubUsername = request.GithubUsername,
-        };
-
+        UpdateUsernameRequest grpcRequest = request.MapToProtoRequest();
         await _githubUserClient.UpdateUsernameAsync(grpcRequest, cancellationToken: cancellationToken);
 
         return Ok();
