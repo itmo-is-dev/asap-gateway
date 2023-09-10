@@ -7,7 +7,7 @@ namespace Itmo.Dev.Asap.Gateway.Sdk.Clients;
 public interface IStudentClient
 {
     [Post("/api/student")]
-    Task<IApiResponse<StudentDto>> CreateAsync(
+    Task<IApiResponse<IReadOnlyCollection<StudentDto>>> CreateAsync(
         [Body] CreateStudentsRequest request,
         CancellationToken cancellationToken);
 

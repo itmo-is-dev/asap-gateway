@@ -31,7 +31,7 @@ public class StudentController : ControllerBase
 
     [HttpPost]
     [AuthorizeFeature(Scope, nameof(Create))]
-    public async Task<ActionResult<StudentDto>> Create(
+    public async Task<ActionResult<IEnumerable<StudentDto>>> Create(
         CreateStudentsRequest request,
         CancellationToken cancellationToken)
     {
@@ -43,7 +43,7 @@ public class StudentController : ControllerBase
         StudentDtoBuilder[] builders = { response.Student.MapToBuilder() };
         IEnumerable<StudentDto> students = await _enrichmentProcessor.EnrichAsync(builders, cancellationToken);
 
-        return Ok(students.Single());
+        return Ok(students);
     }
 
     [HttpPut("{id:guid}/dismiss")]
