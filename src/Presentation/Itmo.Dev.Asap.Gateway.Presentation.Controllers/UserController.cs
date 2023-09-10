@@ -98,6 +98,24 @@ public class UserController : ControllerBase
         return Ok(users.Single());
     }
 
+    [AuthorizeFeature(Scope, nameof(UpdateGithubUsername))]
+    [HttpPut("{userId:guid}/github/username")]
+    public async Task<ActionResult> UpdateGithubUsername(
+        Guid userId,
+        [FromBody] UpdateGithubUsernameRequest request,
+        CancellationToken cancellationToken)
+    {
+        var grpcRequest = new Asap.Github.Users.UpdateUsernameRequest
+        {
+            UserId = userId.ToString(),
+            GithubUsername = request.GithubUsername,
+        };
+
+        await _githubUserClient.UpdateUsernameAsync(grpcRequest, cancellationToken: cancellationToken);
+
+        return Ok();
+    }
+
     [ProducesResponseType(200)]
     [HttpPost("identityInfo/query")]
     [AuthorizeFeature(Scope, nameof(QueryIdentityInfo))]

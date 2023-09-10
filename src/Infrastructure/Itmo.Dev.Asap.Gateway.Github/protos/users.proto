@@ -1,10 +1,12 @@
 syntax = "proto3";
 option csharp_namespace = "Itmo.Dev.Asap.Github.Users";
 
+import "google/protobuf/empty.proto";
 import "models/github_user.proto";
 
 service GithubUserService {
   rpc FindByIds(FindByIdsRequest) returns (FindByIdsResponse);
+  rpc UpdateUsername(UpdateUsernameRequest) returns (google.protobuf.Empty);
 }
 
 message FindByIdsRequest {
@@ -13,4 +15,9 @@ message FindByIdsRequest {
 
 message FindByIdsResponse {
   repeated GithubUser users = 1;
+}
+
+message UpdateUsernameRequest {
+  string user_id = 1;
+  string github_username = 2;
 }

@@ -25,6 +25,12 @@ public interface IUserClient
         CancellationToken cancellationToken);
 
     [Put("/api/user/{userId}/github/username")]
+    Task<IApiResponse> UpdateGithubUsernameAsync(
+        Guid userId,
+        [Body] UpdateGithubUsernameRequest request,
+        CancellationToken cancellationToken);
+
+    [Put("/api/user/{userId}/github/username")]
     Task<IApiResponse> UpdateGithubUsernameAsync(Guid userId, string username, CancellationToken cancellationToken);
 
     [Post("/api/user/identityInfo/query")]

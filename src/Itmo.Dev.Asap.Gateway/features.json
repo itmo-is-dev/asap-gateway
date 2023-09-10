@@ -193,7 +193,7 @@
         "QueryIdentityInfo": [
           "admin"
         ],
-        "GithubUpdateUsername": [
+        "UpdateGithubUsername": [
           "admin"
         ]
       },
