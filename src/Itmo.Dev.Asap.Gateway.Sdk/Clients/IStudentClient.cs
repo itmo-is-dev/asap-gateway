@@ -8,7 +8,7 @@ public interface IStudentClient
 {
     [Post("/api/student")]
     Task<IApiResponse<StudentDto>> CreateAsync(
-        [Body] CreateStudentRequest request,
+        [Body] CreateStudentsRequest request,
         CancellationToken cancellationToken);
 
     [Put("/api/student/{studentId}/dismiss")]

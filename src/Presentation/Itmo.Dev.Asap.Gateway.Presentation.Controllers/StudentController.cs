@@ -5,7 +5,7 @@ using Itmo.Dev.Asap.Gateway.Application.Dto.Users;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;
 using Microsoft.AspNetCore.Mvc;
-using CreateStudentRequest = Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Students.CreateStudentRequest;
+using CreateStudentsRequest = Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Students.CreateStudentsRequest;
 using QueryStudentRequest = Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Students.QueryStudentRequest;
 using QueryStudentResponse = Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Students.QueryStudentResponse;
 using TransferStudentRequest = Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Students.TransferStudentRequest;
@@ -32,12 +32,12 @@ public class StudentController : ControllerBase
     [HttpPost]
     [AuthorizeFeature(Scope, nameof(Create))]
     public async Task<ActionResult<StudentDto>> Create(
-        CreateStudentRequest request,
+        CreateStudentsRequest request,
         CancellationToken cancellationToken)
     {
-        Asap.Core.Students.CreateStudentRequest grpcRequest = request.ToProto();
+        Asap.Core.Students.CreateStudentsRequest grpcRequest = request.ToProto();
 
-        CreateStudentResponse response = await _studentClient
+        CreateStudentsResponse response = await _studentClient
             .CreateAsync(grpcRequest, cancellationToken: cancellationToken);
 
         StudentDtoBuilder[] builders = { response.Student.MapToBuilder() };
