@@ -25,7 +25,7 @@ message CreateStudentsRequest {
 }
 
 message CreateStudentsResponse {
-  Student student = 1;
+  repeated Student students = 1;
 }
 
 message DismissFromGroupRequest {

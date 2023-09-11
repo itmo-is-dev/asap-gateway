@@ -40,7 +40,7 @@ public class StudentController : ControllerBase
         CreateStudentsResponse response = await _studentClient
             .CreateAsync(grpcRequest, cancellationToken: cancellationToken);
 
-        StudentDtoBuilder[] builders = { response.Student.MapToBuilder() };
+        IEnumerable<StudentDtoBuilder> builders = response.Students.Select(x => x.MapToBuilder());
         IEnumerable<StudentDto> students = await _enrichmentProcessor.EnrichAsync(builders, cancellationToken);
 
         return Ok(students);

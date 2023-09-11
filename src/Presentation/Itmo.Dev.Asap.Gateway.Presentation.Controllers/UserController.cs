@@ -100,7 +100,7 @@ public class UserController : ControllerBase
     }
 
     [AuthorizeFeature(Scope, nameof(UpdateGithubUsername))]
-    [HttpPut("/github/username")]
+    [HttpPut("github/username")]
     public async Task<ActionResult> UpdateGithubUsername(
         [FromBody] UpdateGithubUsernameRequest request,
         CancellationToken cancellationToken)
