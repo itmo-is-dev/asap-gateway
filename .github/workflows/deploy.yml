@@ -98,8 +98,7 @@ jobs:
             -e Platform__YandexCloud__LockBox__SecretId=${{ secrets.YANDEX_SECRET_ID }} \
             -d \
             -t \
-            -p 8000:8000 \
             -v /var/log/Serilogs/asap-gateway:/app/Serilogs/asap-gateway \
-            --network asap-kafka_asap-kafka \
+            --network asap-network \
             --restart=unless-stopped \
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.environment-set.outputs.branch }}

@@ -1,4 +1,5 @@
 using Itmo.Dev.Asap.Gateway.Application.Dto.Identity;
+using Itmo.Dev.Asap.Gateway.Application.Dto.Users;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Identity;
 using Refit;
 
@@ -17,8 +18,8 @@ public interface IIdentityClient
         [Query] string roleName,
         CancellationToken cancellationToken);
 
-    [Post("/api/identity/{userId}/account")]
-    Task<IApiResponse> CreateUserAccountAsync(
+    [Post("/api/identity/user/{userId}/account")]
+    Task<IApiResponse<UserIdentityInfoDto>> CreateUserAccountAsync(
         Guid userId,
         [Body] CreateUserAccountRequest request,
         CancellationToken cancellationToken);
@@ -35,4 +36,7 @@ public interface IIdentityClient
 
     [Get("/api/identity/password/options")]
     Task<IApiResponse<PasswordOptionsDto>> GetPasswordOptionsAsync(CancellationToken cancellationToken);
+
+    [Get("/api/identity/roles")]
+    Task<IApiResponse<IReadOnlyCollection<string>>> GetRolesAsync(CancellationToken cancellationToken);
 }

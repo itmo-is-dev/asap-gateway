@@ -7,12 +7,12 @@ namespace Itmo.Dev.Asap.Gateway.Sdk.Clients;
 public interface IStudentClient
 {
     [Post("/api/student")]
-    Task<IApiResponse<StudentDto>> CreateAsync(
-        [Body] CreateStudentRequest request,
+    Task<IApiResponse<IReadOnlyCollection<StudentDto>>> CreateAsync(
+        [Body] CreateStudentsRequest request,
         CancellationToken cancellationToken);
 
     [Put("/api/student/{studentId}/dismiss")]
-    Task<IApiResponse> DismissFromGroupAsync(Guid studentId, CancellationToken cancellationToken);
+    Task<IApiResponse<StudentDto>> DismissFromGroupAsync(Guid studentId, CancellationToken cancellationToken);
 
     [Put("/api/student/{studentId}/group")]
     Task<IApiResponse<StudentDto>> TransferToGroupAsync(

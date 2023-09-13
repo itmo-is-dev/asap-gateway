@@ -6,25 +6,34 @@ import "google/protobuf/empty.proto";
 import "models/student.proto";
 
 service StudentService {
-  rpc Create(CreateStudentRequest) returns (CreateStudentResponse);
-  rpc DismissFromGroup(DismissFromGroupRequest) returns (google.protobuf.Empty);
+  rpc Create(CreateStudentsRequest) returns (CreateStudentsResponse);
+  rpc DismissFromGroup(DismissFromGroupRequest) returns (DismissFromGroupResponse);
   rpc Transfer(TransferStudentRequest) returns (TransferStudentResponse);
   rpc Query(QueryStudentRequest) returns (QueryStudentResponse);
 }
 
-message CreateStudentRequest {
-  google.protobuf.StringValue first_name = 1;
-  google.protobuf.StringValue middle_name = 2;
-  google.protobuf.StringValue last_name = 3;
-  string group_id = 4;
+message CreateStudentsRequest {
+  repeated CreateStudentModel students = 1;
+
+  message CreateStudentModel {
+    string first_name = 1;
+    string middle_name = 2;
+    string last_name = 3;
+    string group_id = 4;
+    int32 university_id = 5;
+  }
 }
 
-message CreateStudentResponse {
-  Student student = 1;
+message CreateStudentsResponse {
+  repeated Student students = 1;
 }
 
 message DismissFromGroupRequest {
   string student_id = 1;
+}
+
+message DismissFromGroupResponse {
+  Student student = 1;
 }
 
 message TransferStudentRequest {

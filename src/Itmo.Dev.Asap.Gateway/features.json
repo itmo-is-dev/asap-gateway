@@ -42,6 +42,10 @@
         "CreateUserAccount": [
           "admin",
           "moderator"
+        ],
+        "GetRoles": [
+          "admin",
+          "moderator"
         ]
       },
       "Internal": {
@@ -189,7 +193,7 @@
         "QueryIdentityInfo": [
           "admin"
         ],
-        "GithubUpdateUsername": [
+        "UpdateGithubUsername": [
           "admin"
         ]
       },

@@ -10,6 +10,7 @@ using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;
 using Itmo.Dev.Asap.Github.Users;
 using Microsoft.AspNetCore.Mvc;
 using UpdateNameRequest = Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Users.UpdateNameRequest;
+using UpdateUsernameRequest = Itmo.Dev.Asap.Github.Users.UpdateUsernameRequest;
 
 namespace Itmo.Dev.Asap.Gateway.Presentation.Controllers;
 
@@ -96,6 +97,18 @@ public class UserController : ControllerBase
         IEnumerable<UserDto> users = await _enrichmentProcessor.EnrichAsync(builders, cancellationToken);
 
         return Ok(users.Single());
+    }
+
+    [AuthorizeFeature(Scope, nameof(UpdateGithubUsername))]
+    [HttpPut("github/username")]
+    public async Task<ActionResult> UpdateGithubUsername(
+        [FromBody] UpdateGithubUsernameRequest request,
+        CancellationToken cancellationToken)
+    {
+        UpdateUsernameRequest grpcRequest = request.MapToProtoRequest();
+        await _githubUserClient.UpdateUsernameAsync(grpcRequest, cancellationToken: cancellationToken);
+
+        return Ok();
     }
 
     [ProducesResponseType(200)]
