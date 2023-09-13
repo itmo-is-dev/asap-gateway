@@ -19,22 +19,22 @@ public class GithubManagementController : ControllerBase
 
     [HttpPost("force-update")]
     [AuthorizeFeature(Scope, nameof(ForceOrganizationUpdate))]
-    public async Task<IActionResult> ForceOrganizationUpdate(
+    public IActionResult ForceOrganizationUpdate(
         [FromQuery] Guid? subjectCourseId,
         CancellationToken cancellationToken)
     {
         if (subjectCourseId is null)
         {
             var request = new ForceAllOrganizationsUpdateRequest();
-            await _client.ForceAllOrganizationsUpdateAsync(request, cancellationToken: cancellationToken);
+            _client.ForceAllOrganizationsUpdateAsync(request);
         }
         else
         {
             var request = new ForceOrganizationUpdateRequest { SubjectCourseId = subjectCourseId.ToString() };
-            await _client.ForceOrganizationUpdateAsync(request, cancellationToken: cancellationToken);
+            _client.ForceOrganizationUpdateAsync(request);
         }
 
-        return Ok();
+        return Accepted();
     }
 
     [HttpPost("force-mentor-sync")]
