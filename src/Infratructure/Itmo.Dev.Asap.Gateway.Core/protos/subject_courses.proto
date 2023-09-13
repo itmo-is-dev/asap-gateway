@@ -3,6 +3,7 @@ option csharp_namespace = "Itmo.Dev.Asap.Core.SubjectCourses";
 
 import "google/protobuf/duration.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
 import "models/subject_course.proto";
 import "models/student.proto";
 import "models/assignment.proto";
@@ -52,10 +53,13 @@ message UpdateResponse {
 
 message GetStudentsRequest {
   string subject_course_id = 1;
+  google.protobuf.StringValue page_token = 2;
+  int32 page_size = 3;
 }
 
 message GetStudentsResponse {
   repeated Student students = 1;
+  google.protobuf.StringValue page_token = 2;
 }
 
 message GetAssignmentsRequest {

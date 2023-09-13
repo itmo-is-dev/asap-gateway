@@ -125,7 +125,11 @@ public class SubjectCourseController : ControllerBase
         Guid id,
         CancellationToken cancellationToken)
     {
-        var request = new GetStudentsRequest { SubjectCourseId = id.ToString() };
+        var request = new GetStudentsRequest
+        {
+            SubjectCourseId = id.ToString(),
+            PageSize = int.MaxValue,
+        };
 
         GetStudentsResponse response = await _subjectCourseClient
             .GetStudentsAsync(request, cancellationToken: cancellationToken);
