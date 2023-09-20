@@ -203,7 +203,7 @@ public class SubjectCourseController : ControllerBase
         return Ok(queue);
     }
 
-    [HttpGet("{subjectCourseId:guid}/groups/{studentGroupId:guid}/queue")]
+    [HttpPost("{subjectCourseId:guid}/groups/{studentGroupId:guid}/queue/sync")]
     [AuthorizeFeature(Scope, nameof(ForceSyncStudentGroupQueue))]
     public async Task<ActionResult> ForceSyncStudentGroupQueue(
         Guid subjectCourseId,
