@@ -203,6 +203,24 @@ public class SubjectCourseController : ControllerBase
         return Ok(queue);
     }
 
+    [HttpGet("{subjectCourseId:guid}/groups/{studentGroupId:guid}/queue")]
+    [AuthorizeFeature(Scope, nameof(ForceSyncStudentGroupQueue))]
+    public async Task<ActionResult> ForceSyncStudentGroupQueue(
+        Guid subjectCourseId,
+        Guid studentGroupId,
+        CancellationToken cancellationToken)
+    {
+        var request = new ForceSyncStudentGroupQueueRequest
+        {
+            SubjectCourseId = subjectCourseId.ToString(),
+            StudentGroupId = studentGroupId.ToString(),
+        };
+
+        await _subjectCourseClient.ForceSyncStudentGroupQueueAsync(request, cancellationToken: cancellationToken);
+
+        return Ok();
+    }
+
     [HttpPost("{id:guid}/deadline/fraction")]
     [AuthorizeFeature(Scope, nameof(AddDeadline))]
     public async Task<ActionResult> AddDeadline(

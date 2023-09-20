@@ -154,6 +154,9 @@
           "moderator",
           "mentor"
         ],
+        "ForceSyncStudentGroupQueue": [
+          "admin"
+        ],
         "AddDeadline": [
           "admin"
         ],
