@@ -131,6 +131,9 @@
           "moderator",
           "mentor"
         ],
+        "Create": [
+          "admin"
+        ],
         "Update": [
           "admin"
         ],

@@ -39,6 +39,7 @@ public class SubjectCourseController : ControllerBase
     }
 
     [HttpPost]
+    [AuthorizeFeature(Scope, nameof(Create))]
     public async Task<ActionResult<SubjectCourseDto>> Create(
         [FromBody] CreateSubjectCourseRequest request,
         CancellationToken cancellationToken)
