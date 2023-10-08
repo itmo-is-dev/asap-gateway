@@ -36,6 +36,7 @@ internal class QueueClient : IQueueClient, IAsyncDisposable
                         return token is null ? null : $"Bearer {token}";
                     };
                 })
+            .WithAutomaticReconnect()
             .Build();
 
         _disposable = _connection.On(

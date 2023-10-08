@@ -6,6 +6,8 @@ using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Assignments;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;
 using Microsoft.AspNetCore.Mvc;
+using UpdateGroupAssignmentDeadlinesRequest =
+    Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.GroupAssignments.UpdateGroupAssignmentDeadlinesRequest;
 using UpdateGroupAssignmentRequest =
     Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.GroupAssignments.UpdateGroupAssignmentRequest;
 
@@ -120,5 +122,27 @@ public class AssignmentsController : ControllerBase
         GroupAssignmentDto groupAssignment = response.GroupAssignment.ToDto();
 
         return Ok(groupAssignment);
+    }
+
+    [HttpPut("{assignmentId:guid}/groups/deadline")]
+    [AuthorizeFeature(Scope, nameof(UpdateGroupAssignmentDeadlines))]
+    public async Task<ActionResult<IEnumerable<GroupAssignmentDto>>> UpdateGroupAssignmentDeadlines(
+        Guid assignmentId,
+        [FromBody] UpdateGroupAssignmentDeadlinesRequest request,
+        CancellationToken cancellationToken)
+    {
+        var grpcRequest = new Asap.Core.Assignments.UpdateGroupAssignmentDeadlinesRequest
+        {
+            AssignmentId = assignmentId.ToString(),
+            Deadline = Timestamp.FromDateTimeOffset(request.Deadline),
+            GroupIds = { request.GroupIds.Select(x => x.ToString()) },
+        };
+
+        UpdateGroupAssignmentDeadlinesResponse response = await _assignmentsClient
+            .UpdateGroupAssignmentDeadlinesAsync(grpcRequest, cancellationToken: cancellationToken);
+
+        IEnumerable<GroupAssignmentDto> dto = response.GroupAssignments.Select(x => x.ToDto());
+
+        return Ok(dto);
     }
 }

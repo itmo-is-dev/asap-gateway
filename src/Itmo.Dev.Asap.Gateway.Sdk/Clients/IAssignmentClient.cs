@@ -28,9 +28,15 @@ public interface IAssignmentClient
         CancellationToken cancellationToken);
 
     [Put("/api/assignments/{assignmentId}/groups/{groupId}")]
-    Task<IApiResponse<GroupAssignmentDto>> UpdateGroupAssignment(
+    Task<IApiResponse<GroupAssignmentDto>> UpdateGroupAssignmentAsync(
         Guid assignmentId,
         Guid groupId,
         [Body] UpdateGroupAssignmentRequest request,
+        CancellationToken cancellationToken);
+
+    [Put("/api/assignments/{assignmentId}/groups/deadline")]
+    Task<IApiResponse<IReadOnlyCollection<GroupAssignmentDto>>> UpdateGroupAssignmentDeadlinesAsync(
+        Guid assignmentId,
+        [Body] UpdateGroupAssignmentDeadlinesRequest request,
         CancellationToken cancellationToken);
 }

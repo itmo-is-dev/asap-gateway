@@ -24,6 +24,11 @@
           "admin",
           "moderator",
           "mentor"
+        ],
+        "UpdateGroupAssignmentDeadlines": [
+          "admin",
+          "moderator",
+          "mentor"
         ]
       },
       "Github": {

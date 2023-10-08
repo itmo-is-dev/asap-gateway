@@ -12,6 +12,7 @@ service AssignmentsService {
   rpc UpdatePoints(UpdatePointsRequest) returns (UpdatePointsResponse);
   rpc GetGroupAssignments(GetGroupAssignmentsRequest) returns (GetGroupAssignmentsResponse);
   rpc UpdateGroupAssignment(UpdateGroupAssignmentRequest) returns (UpdateGroupAssignmentResponse);
+  rpc UpdateGroupAssignmentDeadlines(UpdateGroupAssignmentDeadlinesRequest) returns (UpdateGroupAssignmentDeadlinesResponse);
 }
 
 message CreateRequest {
@@ -61,4 +62,14 @@ message UpdateGroupAssignmentRequest {
 
 message UpdateGroupAssignmentResponse {
   GroupAssignment group_assignment = 1;
+}
+
+message UpdateGroupAssignmentDeadlinesRequest {
+  string assignment_id = 1;
+  google.protobuf.Timestamp deadline = 2;
+  repeated string group_ids = 3;
+}
+
+message UpdateGroupAssignmentDeadlinesResponse {
+  repeated GroupAssignment group_assignments = 1;
 }
