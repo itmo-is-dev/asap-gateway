@@ -5,4 +5,5 @@ public record QueryStudentGroupRequest(
     int PageSize,
     IEnumerable<Guid> ExcludedIds,
     IEnumerable<string> NamePatterns,
+    IEnumerable<Guid> SubjectCourseIds,
     IEnumerable<Guid> ExcludedSubjectCourseIds);
