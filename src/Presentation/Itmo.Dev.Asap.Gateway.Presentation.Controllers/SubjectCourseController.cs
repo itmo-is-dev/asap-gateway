@@ -13,6 +13,7 @@ using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;
 using Itmo.Dev.Asap.Github.SubjectCourses;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Itmo.Dev.Asap.Gateway.Presentation.Controllers;
 
@@ -291,7 +292,9 @@ public class SubjectCourseController : ControllerBase
 
             StartContentDumpResponse.ResultOneofCase.AlreadyRunning => Conflict(),
             StartContentDumpResponse.ResultOneofCase.SubjectCourseNotFound => NotFound(),
-            StartContentDumpResponse.ResultOneofCase.None or _ => throw new ArgumentOutOfRangeException(),
+
+            StartContentDumpResponse.ResultOneofCase.None or _
+                => throw new UnreachableException("Operation yielded an unexpected result"),
         };
     }
 }
