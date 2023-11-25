@@ -178,6 +178,9 @@
           "admin",
           "moderator",
           "mentor"
+        ],
+        "StartContentDump": [
+          "admin"
         ]
       },
       "SubjectCourseGroups": {

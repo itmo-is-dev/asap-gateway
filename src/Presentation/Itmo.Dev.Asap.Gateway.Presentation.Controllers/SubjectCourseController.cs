@@ -7,6 +7,7 @@ using Itmo.Dev.Asap.Gateway.Application.Dto.SubjectCourses;
 using Itmo.Dev.Asap.Gateway.Application.Dto.Tables;
 using Itmo.Dev.Asap.Gateway.Application.Dto.Users;
 using Itmo.Dev.Asap.Gateway.Core.Mapping;
+using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Github;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.SubjectCourses;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Itmo.Dev.Asap.Gateway.Presentation.Controllers.Mapping;
@@ -267,5 +268,30 @@ public class SubjectCourseController : ControllerBase
         await _githubSubjectCourseClient.UpdateMentorTeamAsync(grpcRequest, cancellationToken: cancellationToken);
 
         return Ok();
+    }
+
+    [HttpPost("{subjectCourseId:guid}/content/dump")]
+    [AuthorizeFeature(Scope, nameof(StartContentDump))]
+    public async Task<ActionResult<StartSubjectCourseContentDumpResponse>> StartContentDump(
+        Guid subjectCourseId,
+        CancellationToken cancellationToken)
+    {
+        var request = new StartContentDumpRequest
+        {
+            SubjectCourseId = subjectCourseId.ToString(),
+        };
+
+        StartContentDumpResponse response = await _githubSubjectCourseClient
+            .StartContentDumpAsync(request, cancellationToken: cancellationToken);
+
+        return response.ResultCase switch
+        {
+            StartContentDumpResponse.ResultOneofCase.Success
+                => Ok(new StartSubjectCourseContentDumpResponse(response.Success.TaskId)),
+
+            StartContentDumpResponse.ResultOneofCase.AlreadyRunning => Conflict(),
+            StartContentDumpResponse.ResultOneofCase.SubjectCourseNotFound => NotFound(),
+            StartContentDumpResponse.ResultOneofCase.None or _ => throw new ArgumentOutOfRangeException(),
+        };
     }
 }

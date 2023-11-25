@@ -2,12 +2,16 @@ syntax = "proto3";
 option csharp_namespace = "Itmo.Dev.Asap.Github.SubjectCourses";
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
 import "models/github_subject_course.proto";
+import "models/github_submission_data.proto";
 
 service GithubSubjectCourseService {
   rpc ProvisionSubjectCourse(ProvisionSubjectCourseRequest) returns (google.protobuf.Empty);
   rpc UpdateMentorTeam(UpdateMentorTeamRequest) returns (google.protobuf.Empty);
   rpc FindByIds(FindByIdsRequest) returns (FindByIdsResponse);
+  rpc StartContentDump(StartContentDumpRequest) returns (StartContentDumpResponse);
+  rpc GetContentDumpResult(GetContentDumpResultRequest) returns (GetContentDumpResultResponse);
 }
 
 message ProvisionSubjectCourseRequest {
@@ -28,4 +32,56 @@ message FindByIdsRequest {
 
 message FindByIdsResponse {
   repeated GithubSubjectCourse subject_courses = 1;
+}
+
+message StartContentDumpRequest {
+  string subject_course_id = 1;
+}
+
+message StartContentDumpResponse {
+  oneof result {
+    Success success = 1;
+    AlreadyRunning already_running = 2;
+    SubjectCourseNotFound subject_course_not_found = 3;
+  }
+
+  message Success {
+    int64 task_id = 1;
+  }
+
+  message AlreadyRunning {
+  }
+
+  message SubjectCourseNotFound {
+  }
+}
+
+message GetContentDumpResultRequest {
+  int64 task_id = 1;
+  int32 page_size = 2;
+  google.protobuf.StringValue page_token = 3;;
+}
+
+message GetContentDumpResultResponse {
+  oneof result {
+    Success success = 1;
+    Failure failure = 2;
+    TaskNotCompleted task_not_completed = 3;
+    TaskNotFound task_not_found = 4;
+  }
+
+  message Success {
+    repeated GithubSubmissionData data = 1;
+    google.protobuf.StringValue page_token = 2;
+  }
+
+  message Failure {
+    string message = 1;
+  }
+
+  message TaskNotCompleted {
+  }
+
+  message TaskNotFound {
+  }
 }
