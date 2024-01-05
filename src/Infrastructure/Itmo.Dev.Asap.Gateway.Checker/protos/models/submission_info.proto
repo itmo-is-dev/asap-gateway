@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package itmo.dev.asap.checker;
+
+option csharp_namespace = "Itmo.Dev.Asap.Checker.Models";
+
+message SubmissionInfo {
+  string submission_id = 1;
+  string user_id = 2;
+  string group_id = 3;
+}

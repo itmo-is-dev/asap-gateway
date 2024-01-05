@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package itmo.dev.asap.checker;
+
+option csharp_namespace = "Itmo.Dev.Asap.Checker.Models";
+
+import "google/protobuf/timestamp.proto";
+
+message CheckingTask {
+  int64 task_id = 1;
+  google.protobuf.Timestamp created_at = 2;
+  bool is_completed = 3;
+}

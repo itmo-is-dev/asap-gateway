@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package itmo.dev.asap.checker;
+
+option csharp_namespace = "Itmo.Dev.Asap.Checker.Models";
+
+import "models/submission_info.proto";
+
+message CheckingResult {
+  string assignment_id = 1;
+  SubmissionInfo first_submission = 2;
+  SubmissionInfo second_submission = 3;
+  double similarity_score = 4;;
+}

@@ -22,6 +22,7 @@ public static class ServiceCollectionExtensions
         collection.AddTransient<AuthenticationHandler>();
 
         AddClient<IAssignmentClient>();
+        AddClient<ICheckingClient>();
         AddClient<IGithubManagementClient>();
         AddClient<IGithubSearchClient>();
         AddClient<IIdentityClient>();

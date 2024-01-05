@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Application\Itmo.Dev.Asap.Gateway.Application.Dto\Itmo.Dev.Asap.Gateway.Application.Dto.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Itmo.Dev.Asap.Gateway.Checker\Itmo.Dev.Asap.Gateway.Checker.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Itmo.Dev.Asap.Gateway.Github\Itmo.Dev.Asap.Gateway.Github.csproj" />
       <ProjectReference Include="..\..\Infratructure\Itmo.Dev.Asap.Gateway.Auth\Itmo.Dev.Asap.Gateway.Auth.csproj" />
       <ProjectReference Include="..\..\Infratructure\Itmo.Dev.Asap.Gateway.Core\Itmo.Dev.Asap.Gateway.Core.csproj" />
