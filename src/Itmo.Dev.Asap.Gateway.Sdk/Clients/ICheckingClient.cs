@@ -10,7 +10,7 @@ public interface ICheckingClient
         [Body] GetCheckingsRequest request,
         CancellationToken cancellationToken);
 
-    [Post("/api/checking/result")]
+    [Post("/api/checking/results")]
     Task<ApiResponse<GetCheckingResultsResponse>> GetCheckingResultsAsync(
         [Body] GetCheckingResultsRequest request,
         CancellationToken cancellationToken);

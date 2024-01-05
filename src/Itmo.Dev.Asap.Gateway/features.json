@@ -31,6 +31,23 @@
           "mentor"
         ]
       },
+      "Checking": {
+        "GetCheckings": [
+          "admin",
+          "moderator",
+          "mentor"
+        ],
+        "GetCheckingResults": [
+          "admin",
+          "moderator",
+          "mentor"
+        ],
+        "GetCheckingCodeBlocks": [
+          "admin",
+          "moderator",
+          "mentor"
+        ]
+      },
       "Github": {
         "ForceOrganizationUpdate": [
           "admin"
