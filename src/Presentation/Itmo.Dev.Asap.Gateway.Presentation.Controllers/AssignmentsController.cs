@@ -156,6 +156,7 @@ public class AssignmentsController : ControllerBase
         {
             Ids = { request.Ids.Select(x => x.ToString()) },
             Names = { request.Names },
+            SubjectCourseIds = { request.SubjectCourseIds.Select(x => x.ToString()) },
         };
 
         QueryResponse grpcResponse = await _assignmentsClient

@@ -78,6 +78,7 @@ message UpdateGroupAssignmentDeadlinesResponse {
 message QueryRequest {
   repeated string ids = 1;
   repeated string names = 2;
+  repeated string subject_course_ids = 3;
 }
 
 message QueryResponse {
