@@ -59,6 +59,8 @@ public class CheckingController : ControllerBase
         var grpcRequest = new GetResultsRequest
         {
             TaskId = request.CheckingId,
+            AssignmentIds = { request.AssignmentIds.Select(x => x.ToString()) },
+            GroupIds = { request.GroupIds.Select(x => x.ToString()) },
             PageSize = request.PageSize,
             PageToken = request.PageToken,
         };
