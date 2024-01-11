@@ -145,4 +145,24 @@ public class AssignmentsController : ControllerBase
 
         return Ok(dto);
     }
+
+    [HttpPost("query")]
+    [AuthorizeFeature(Scope, nameof(Query))]
+    public async Task<ActionResult<IEnumerable<AssignmentDto>>> Query(
+        [FromBody] QueryAssignmentsRequest request,
+        CancellationToken cancellationToken)
+    {
+        var grpcRequest = new QueryRequest
+        {
+            Ids = { request.Ids.Select(x => x.ToString()) },
+            Names = { request.Names },
+        };
+
+        QueryResponse grpcResponse = await _assignmentsClient
+            .QueryAsync(grpcRequest, cancellationToken: cancellationToken);
+
+        IEnumerable<AssignmentDto> assignments = grpcResponse.Assignments.Select(x => x.ToDto());
+
+        return Ok(assignments);
+    }
 }

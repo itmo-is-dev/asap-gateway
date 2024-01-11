@@ -29,6 +29,11 @@
           "admin",
           "moderator",
           "mentor"
+        ],
+        "Query": [
+          "admin",
+          "moderator",
+          "mentor"
         ]
       },
       "Checking": {
@@ -209,6 +214,11 @@
         ],
         "Delete": [
           "admin"
+        ],
+        "Query": [
+          "admin",
+          "moderator",
+          "mentor"
         ]
       },
       "Users": {

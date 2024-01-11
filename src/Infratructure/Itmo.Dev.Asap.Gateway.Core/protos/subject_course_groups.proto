@@ -7,6 +7,7 @@ import "models/subject_course_group.proto";
 service SubjectCourseGroupService {
   rpc Create(CreateRequest) returns (CreateResponse);
   rpc Delete(DeleteRequest) returns (google.protobuf.Empty);
+  rpc Query(QueryRequest) returns (QueryResponse);
 }
 
 message CreateRequest {
@@ -21,4 +22,14 @@ message CreateResponse {
 message DeleteRequest {
   string subject_course_id = 1;
   string student_group_id = 2;
+}
+
+message QueryRequest {
+  string subject_course_id = 1;
+  repeated string ids = 2;
+  repeated string names = 3;
+}
+
+message QueryResponse {
+  repeated SubjectCourseGroup subject_course_groups = 1;
 }

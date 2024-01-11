@@ -18,4 +18,9 @@ public interface ISubjectCourseGroupClient
 
     [Delete("/api/subjectCourseGroup")]
     Task<IApiResponse> DeleteAsync([Body] DeleteSubjectCourseGroupRequest request, CancellationToken cancellationToken);
+
+    [Post("/api/subjectCourseGroup/query")]
+    Task<IApiResponse<IEnumerable<SubjectCourseGroupDto>>> QueryAsync(
+        [Body] QuerySubjectCourseGroupsRequest request,
+        CancellationToken cancellationToken);
 }
