@@ -3,6 +3,7 @@ using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment;
 using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment.Builders;
 using Itmo.Dev.Asap.Gateway.Application.Dto.Checking;
 using Itmo.Dev.Asap.Gateway.Checker.Mapping;
+using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Checking;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -106,5 +107,33 @@ public class CheckingController : ControllerBase
             grpcResponse.HasNext);
 
         return Ok(response);
+    }
+
+    [HttpPost("start")]
+    [AuthorizeFeature(Scope, nameof(Start))]
+    public async Task<ActionResult<CheckingDto>> Start(
+        [FromBody] StartCheckingRequest request,
+        CancellationToken cancellationToken)
+    {
+        var grpcRequest = new StartRequest
+        {
+            SubjectCourseId = request.SubjectCourseId.ToString(),
+        };
+
+        StartResponse grpcResponse = await _client
+            .StartAsync(grpcRequest, cancellationToken: cancellationToken);
+
+        return grpcResponse.ResultCase switch
+        {
+            StartResponse.ResultOneofCase.Success => Ok(grpcResponse.Success.Checking.MapToDto()),
+
+            StartResponse.ResultOneofCase.SubjectCourseNotFound
+                => NotFound(new ErrorDetails("Subject course not found")),
+
+            StartResponse.ResultOneofCase.AlreadyInProgress
+                => Conflict(new ErrorDetails("Checking task already in progress")),
+
+            _ or StartResponse.ResultOneofCase.None => throw new ArgumentOutOfRangeException(),
+        };
     }
 }

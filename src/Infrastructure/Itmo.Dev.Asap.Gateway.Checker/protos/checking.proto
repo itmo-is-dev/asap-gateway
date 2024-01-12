@@ -26,13 +26,14 @@ message StartResponse {
     SubjectCourseNotFound subject_course_not_found = 2;
     AlreadyInProgress already_in_progress = 3;
   }
-  
+
   message Success {
+    CheckingTask checking = 1;
   }
-  
+
   message SubjectCourseNotFound {
   }
-  
+
   message AlreadyInProgress {
   }
 }
