@@ -7,6 +7,7 @@ using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models;
 using Itmo.Dev.Asap.Gateway.Presentation.Abstractions.Models.Checking;
 using Itmo.Dev.Asap.Gateway.Presentation.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Itmo.Dev.Asap.Gateway.Presentation.Controllers;
 
@@ -133,7 +134,8 @@ public class CheckingController : ControllerBase
             StartResponse.ResultOneofCase.AlreadyInProgress
                 => Conflict(new ErrorDetails("Checking task already in progress")),
 
-            _ or StartResponse.ResultOneofCase.None => throw new ArgumentOutOfRangeException(),
+            _ or StartResponse.ResultOneofCase.None
+                => throw new UnreachableException("Operation yielded unexpected result"),
         };
     }
 }
