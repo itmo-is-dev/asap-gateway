@@ -45,6 +45,12 @@ public static class ServiceCollectionExtensions
             CheckingResultBuilder,
             CheckingResultDto>();
 
+        collection.TryAddEnricher<
+            CheckingResultSubmissionEnricher,
+            CheckingResultKey,
+            CheckingResultBuilder,
+            CheckingResultDto>();
+
         return collection;
 
         void AddClient<TClient>() where TClient : class

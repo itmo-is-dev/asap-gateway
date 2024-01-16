@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
+
+import "google/protobuf/timestamp.proto";
+import "models/submission_state.proto";
+
+message SubmissionInfo {
+  string submission_id = 1;
+  google.protobuf.Timestamp created_at = 2;
+  SubmissionState state = 3;
+}

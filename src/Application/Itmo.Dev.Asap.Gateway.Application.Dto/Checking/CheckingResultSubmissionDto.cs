@@ -1,3 +1,5 @@
+using Itmo.Dev.Asap.Gateway.Application.Dto.Study;
+
 namespace Itmo.Dev.Asap.Gateway.Application.Dto.Checking;
 
 public record CheckingResultSubmissionDto(
@@ -5,4 +7,5 @@ public record CheckingResultSubmissionDto(
     Guid StudentId,
     string FirstName,
     string LastName,
-    string GroupName);
+    string GroupName,
+    SubmissionStateDto State);

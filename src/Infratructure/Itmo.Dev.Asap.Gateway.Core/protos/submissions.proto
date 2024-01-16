@@ -1,0 +1,177 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Submissions";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "models/submission.proto";
+import "models/submission_rate.proto";
+import "models/submission_info.proto";
+import "models/submission_state.proto";
+
+service SubmissionService {
+  rpc Activate(ActivateRequest) returns (ActivateResponse);
+  rpc Ban(BanRequest) returns (BanResponse);
+  rpc Unban(UnbanRequest) returns (UnbanResponse);
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Deactivate(DeactivateRequest) returns (DeactivateResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc MarkReviewed(MarkReviewedRequest) returns (MarkReviewedResponse);
+  rpc Rate(RateRequest) returns (RateResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc QueryFirstCompletedSubmission(QueryFirstCompletedSubmissionRequest) returns (QueryFirstCompletedSubmissionResponse);
+  rpc QueryInfo(QueryInfoRequest) returns (QueryInfoResponse);
+}
+
+message ActivateRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message ActivateResponse {
+  Submission submission = 1;
+}
+
+message BanRequest {
+  string issuer_id = 1;
+  string student_id = 2;
+  string assignment_id = 3;
+  google.protobuf.Int32Value code = 4;
+}
+
+message BanResponse {
+  Submission submission = 1;
+}
+
+message UnbanRequest {
+  string issuer_id = 1;
+  string student_id = 2;
+  string assignment_id = 3;
+  google.protobuf.Int32Value code = 4;
+}
+
+message UnbanResponse {
+  oneof result {
+    Success success = 1;
+    Unauthorized unauthorized = 2;
+    InvalidMove invalid_move = 3;
+  }
+
+  message Success {
+    Submission submission = 1;
+  }
+
+  message Unauthorized {
+  }
+
+  message InvalidMove {
+    SubmissionState source_state = 1;
+  }
+}
+
+message CreateRequest {
+  string issuer_id = 1;
+  string student_id = 2;
+  string assignment_id = 3;
+  string payload = 4;
+}
+
+message CreateResponse {
+  oneof result {
+    Success success = 1;
+    Unauthorized unauthorized = 2;
+  }
+
+  message Success {
+    Submission submission = 1;
+  }
+
+  message Unauthorized{
+  }
+}
+
+message DeactivateRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message DeactivateResponse {
+  Submission submission = 1;
+}
+
+message DeleteRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message DeleteResponse {
+  Submission submission = 1;
+}
+
+message MarkReviewedRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message MarkReviewedResponse {
+  Submission submission = 1;
+}
+
+message RateRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+  double rating_percent = 3;
+  google.protobuf.DoubleValue extra_points = 4;
+}
+
+message RateResponse {
+  oneof result {
+    SubmissionRate submission = 1;
+    string error_message = 2;
+  }
+}
+
+message UpdateRequest {
+  string issuer_id = 1;
+  string user_id = 2;
+  string assignment_id = 3;
+  google.protobuf.Int32Value code = 4;
+
+  oneof submission_date {
+    google.protobuf.Timestamp submission_date_value = 5;
+  }
+
+  google.protobuf.DoubleValue rating_percent = 6;
+  google.protobuf.DoubleValue extra_points = 7;
+}
+
+message UpdateResponse {
+  oneof result {
+    SubmissionRate submission = 1;
+    string error_message = 2;
+  }
+}
+
+message QueryFirstCompletedSubmissionRequest {
+  string subject_course_id = 1;
+  int32 page_size = 2;
+  google.protobuf.StringValue page_token = 3;
+}
+
+message QueryFirstCompletedSubmissionResponse {
+  repeated FirstSubmission submission = 1;
+  google.protobuf.StringValue page_token = 2;
+
+  message FirstSubmission {
+    string submission_id = 1;
+    string user_id = 2;
+    string assignment_id = 3;
+  }
+}
+
+message QueryInfoRequest {
+  repeated string submission_ids = 1;
+}
+
+message QueryInfoResponse {
+  repeated SubmissionInfo submissions = 1;
+}

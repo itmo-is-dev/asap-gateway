@@ -1,0 +1,154 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.SubmissionWorkflow";
+
+import "models/submission_rate.proto";
+import "models/submission.proto";
+import "models/submission_state.proto";
+
+service SubmissionWorkflowService {
+  rpc Approved(ApprovedRequest) returns (ApprovedResponse);
+  rpc Reactivated(ReactivatedRequest) returns (ReactivatedResponse);
+  rpc Updated(UpdatedRequest) returns (UpdatedResponse);
+  rpc Accepted(AcceptedRequest) returns (AcceptedResponse);
+  rpc Rejected(RejectedRequest) returns (RejectedResponse);
+  rpc Abandoned(AbandonedRequest) returns (AbandonedResponse);
+  rpc NotAccepted(NotAcceptedRequest) returns (NotAcceptedResponse);
+}
+
+message ApprovedRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message ApprovedResponse {
+  oneof result {
+    Success success = 1;
+    InvalidState invalid_state = 2;
+  }
+  
+  message Success {
+    SubmissionRate submission_rate = 1;
+  }
+  
+  message InvalidState {
+    SubmissionState submission_state = 1;
+  }
+}
+
+message ReactivatedRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message ReactivatedResponse {
+  oneof result {
+    Success success = 1;
+    InvalidState invalid_state = 2;
+  }
+
+  message Success {
+  }
+
+  message InvalidState {
+    SubmissionState submission_state = 1;
+  }
+}
+
+message UpdatedRequest {
+  string issuer_id = 1;
+  string user_id = 2;
+  string assignment_id = 3;
+  string payload = 4;
+}
+
+message UpdatedResponse {
+  oneof result {
+    Success success = 1;
+  }
+
+  message Success {
+    SubmissionRate submission_rate = 1;
+    bool is_created = 2;
+  }
+}
+
+message AcceptedRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message AcceptedResponse {
+  oneof result {
+    Success success = 1;
+    InvalidState invalid_state = 2;
+  }
+
+  message Success {
+    SubmissionRate submission_rate = 1;
+  }
+
+  message InvalidState {
+    SubmissionState submission_state = 1;
+  }
+}
+
+message RejectedRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message RejectedResponse {
+  oneof result {
+    Success success = 1;
+    InvalidState invalid_state = 2;
+  }
+
+  message Success {
+    int32 submission_code = 1;
+  }
+
+  message InvalidState {
+    SubmissionState submission_state = 1;
+  }
+}
+
+message AbandonedRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+  bool is_terminal = 3;
+}
+
+message AbandonedResponse {
+  oneof result {
+    Success success = 1;
+    InvalidState invalid_state = 2;
+  }
+  
+  message Success {
+    int32 submission_code = 1;
+  }
+  
+  message InvalidState {
+    SubmissionState submission_state = 1;
+  }
+}
+
+message NotAcceptedRequest {
+  string issuer_id = 1;
+  string submission_id = 2;
+}
+
+message NotAcceptedResponse {
+  oneof result {
+    Success success = 1;
+    InvalidState invalid_state = 2;
+  }
+  
+  message Success {
+    SubmissionRate submission_rate = 1;
+  }
+  
+  message InvalidState {
+    SubmissionState submission_state = 1;
+  }
+}

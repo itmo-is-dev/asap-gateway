@@ -6,6 +6,7 @@ import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "models/student.proto";
 import "models/submission.proto";
+import "models/submission_state.proto";
 
 
 service QueueService {

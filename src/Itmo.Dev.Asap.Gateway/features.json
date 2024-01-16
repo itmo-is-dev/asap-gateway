@@ -52,7 +52,7 @@
           "moderator",
           "mentor"
         ],
-        "Checking": [
+        "Start": [
           "admin",
           "moderator"
         ]
@@ -220,6 +220,13 @@
           "admin"
         ],
         "Query": [
+          "admin",
+          "moderator",
+          "mentor"
+        ]
+      },
+      "Submissions": {
+        "Ban": [
           "admin",
           "moderator",
           "mentor"

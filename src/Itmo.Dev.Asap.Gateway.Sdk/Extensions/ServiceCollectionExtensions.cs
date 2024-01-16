@@ -31,6 +31,7 @@ public static class ServiceCollectionExtensions
         AddClient<ISubjectClient>();
         AddClient<ISubjectCourseClient>();
         AddClient<ISubjectCourseGroupClient>();
+        AddClient<ISubmissionsClient>();
         AddClient<IUserClient>();
 
         collection.AddSingleton<IQueueClient, QueueClient>();

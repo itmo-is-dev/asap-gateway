@@ -1,4 +1,5 @@
 using Itmo.Dev.Asap.Gateway.Application.Dto.Checking;
+using Itmo.Dev.Asap.Gateway.Application.Dto.Study;
 
 namespace Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment.Builders;
 
@@ -34,21 +35,33 @@ public class CheckingResultBuilder : IEntityBuilder<CheckingResultKey, CheckingR
 
     public CheckingResultStudentInfo? SecondSubmissionStudent { get; set; }
 
+    public SubmissionStateDto? FirstSubmissionState { get; set; }
+
+    public SubmissionStateDto? SecondSubmissionState { get; set; }
+
     public CheckingResultDto Build()
     {
+        if (FirstSubmissionState is null)
+            throw new ArgumentException($"Submission = {FirstSubmission.SubmissionId} state not found");
+
+        if (SecondSubmissionState is null)
+            throw new ArgumentException($"Submission = {SecondSubmission.SubmissionId} state not found");
+
         var first = new CheckingResultSubmissionDto(
             SubmissionId: FirstSubmission.SubmissionId,
             StudentId: FirstSubmission.UserId,
             FirstName: FirstSubmissionStudent?.FirstName ?? string.Empty,
             LastName: FirstSubmissionStudent?.LastName ?? string.Empty,
-            GroupName: FirstSubmissionStudent?.GroupName ?? string.Empty);
+            GroupName: FirstSubmissionStudent?.GroupName ?? string.Empty,
+            State: FirstSubmissionState.Value);
 
         var second = new CheckingResultSubmissionDto(
             SubmissionId: SecondSubmission.SubmissionId,
             StudentId: SecondSubmission.UserId,
             FirstName: SecondSubmissionStudent?.FirstName ?? string.Empty,
             LastName: SecondSubmissionStudent?.LastName ?? string.Empty,
-            GroupName: SecondSubmissionStudent?.GroupName ?? string.Empty);
+            GroupName: SecondSubmissionStudent?.GroupName ?? string.Empty,
+            State: SecondSubmissionState.Value);
 
         return new CheckingResultDto(
             AssignmentName ?? string.Empty,

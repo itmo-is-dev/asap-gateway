@@ -23,6 +23,20 @@ public static partial class ProtoMapper
 
     public static partial SubmissionStateWorkflowTypeDto ToDto(this SubmissionStateWorkflowType workflowType);
 
+    public static SubmissionStateDto ToDto(this SubmissionState state)
+    {
+        return state switch
+        {
+            SubmissionState.Active => SubmissionStateDto.Active,
+            SubmissionState.Inactive => SubmissionStateDto.Inactive,
+            SubmissionState.Deleted => SubmissionStateDto.Deleted,
+            SubmissionState.Completed => SubmissionStateDto.Completed,
+            SubmissionState.Reviewed => SubmissionStateDto.Reviewed,
+            SubmissionState.Banned => SubmissionStateDto.Banned,
+            _ or SubmissionState.None => throw new ArgumentOutOfRangeException(nameof(state), state, null),
+        };
+    }
+
     public static partial SubmissionStateWorkflowType ToProto(this SubmissionStateWorkflowTypeDto workflowType);
 
     private static partial Guid ToGuid(this string value);
