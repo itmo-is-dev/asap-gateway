@@ -64,6 +64,7 @@ public class CheckingResultBuilder : IEntityBuilder<CheckingResultKey, CheckingR
             State: SecondSubmissionState.Value);
 
         return new CheckingResultDto(
+            AssignmentId,
             AssignmentName ?? string.Empty,
             first,
             second,
