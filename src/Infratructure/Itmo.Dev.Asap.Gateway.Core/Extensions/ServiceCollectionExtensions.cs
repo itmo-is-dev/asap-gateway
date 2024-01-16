@@ -7,6 +7,7 @@ using Itmo.Dev.Asap.Core.Students;
 using Itmo.Dev.Asap.Core.SubjectCourseGroups;
 using Itmo.Dev.Asap.Core.SubjectCourses;
 using Itmo.Dev.Asap.Core.Subjects;
+using Itmo.Dev.Asap.Core.Submissions;
 using Itmo.Dev.Asap.Core.Users;
 using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment;
 using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment.Builders;
@@ -30,6 +31,7 @@ public static class ServiceCollectionExtensions
         AddClient<SubjectCourseGroupService.SubjectCourseGroupServiceClient>();
         AddClient<SubjectCourseService.SubjectCourseServiceClient>();
         AddClient<SubjectService.SubjectServiceClient>();
+        AddClient<SubmissionService.SubmissionServiceClient>();
         AddClient<UserService.UserServiceClient>();
         AddClient<QueueService.QueueServiceClient>();
 
