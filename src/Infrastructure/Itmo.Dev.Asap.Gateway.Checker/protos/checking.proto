@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package itmo.dev.asap.checker;
+
+option csharp_namespace = "Itmo.Dev.Asap.Checker";
+
+import "models/checking_task.proto";
+import "models/checking_result.proto";
+import "models/similar_code_blocks.proto";
+import "google/protobuf/wrappers.proto";
+
+service CheckingService {
+  rpc Start(StartRequest) returns (StartResponse);
+  rpc GetTasks(GetTasksRequest) returns (GetTasksResponse);
+  rpc GetResults(GetResultsRequest) returns (GetResultsResponse);
+  rpc GetResultCodeBlocks(GetResultCodeBlocksRequest) returns (GetResultCodeBlocksResponse);
+}
+
+message StartRequest {
+  string subject_course_id = 1;
+}
+
+message StartResponse {
+  oneof result {
+    Success success = 1;
+    SubjectCourseNotFound subject_course_not_found = 2;
+    AlreadyInProgress already_in_progress = 3;
+  }
+
+  message Success {
+    CheckingTask checking = 1;
+  }
+
+  message SubjectCourseNotFound {
+  }
+
+  message AlreadyInProgress {
+  }
+}
+
+message GetTasksRequest {
+  string subject_course_id = 1;
+  bool is_active = 2;
+  int32 page_size = 3;
+  google.protobuf.StringValue page_token = 4;
+}
+
+message GetTasksResponse {
+  repeated CheckingTask tasks = 1;
+  google.protobuf.StringValue page_token = 2;
+}
+
+message GetResultsRequest {
+  int32 page_size = 1;
+  google.protobuf.StringValue page_token = 2;
+
+  int64 task_id = 3;
+  repeated string assignment_ids = 4;
+  repeated string group_ids = 5;
+}
+
+message GetResultsResponse {
+  repeated CheckingResult results = 1;
+  google.protobuf.StringValue page_token = 2;
+}
+
+message GetResultCodeBlocksRequest {
+  int64 task_id = 1;
+  string first_submission_id = 2;
+  string second_submission_id = 3;
+  int32 page_size = 4;
+  int32 cursor = 5;
+}
+
+message GetResultCodeBlocksResponse {
+  repeated SimilarCodeBlocks code_blocks = 1;
+  bool has_next = 2;
+}

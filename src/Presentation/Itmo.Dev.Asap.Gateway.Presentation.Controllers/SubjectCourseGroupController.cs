@@ -75,4 +75,25 @@ public class SubjectCourseGroupController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPost("query")]
+    [AuthorizeFeature(Scope, nameof(Query))]
+    public async Task<ActionResult<IEnumerable<SubjectCourseGroupDto>>> Query(
+        [FromBody] QuerySubjectCourseGroupsRequest request,
+        CancellationToken cancellationToken)
+    {
+        var grpcRequest = new QueryRequest
+        {
+            SubjectCourseId = request.SubjectCourseId.ToString(),
+            Ids = { request.Ids.Select(x => x.ToString()) },
+            Names = { request.Names },
+        };
+
+        QueryResponse grpcResponse = await _client
+            .QueryAsync(grpcRequest, cancellationToken: cancellationToken);
+
+        IEnumerable<SubjectCourseGroupDto> groups = grpcResponse.SubjectCourseGroups.Select(group => group.ToDto());
+
+        return Ok(groups);
+    }
 }

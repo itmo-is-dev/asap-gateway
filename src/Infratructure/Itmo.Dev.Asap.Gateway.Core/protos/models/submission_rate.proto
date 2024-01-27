@@ -1,0 +1,18 @@
+syntax = "proto3";
+option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+message SubmissionRate {
+  string submission_id = 1;
+  int32 code = 2;
+  string state = 3;
+  google.protobuf.Timestamp submission_date = 4;
+  google.protobuf.DoubleValue rating = 5;
+  google.protobuf.DoubleValue raw_points = 6;
+  google.protobuf.DoubleValue max_raw_points = 7;
+  google.protobuf.DoubleValue extra_points = 8;
+  google.protobuf.DoubleValue penalty_points = 9;
+  google.protobuf.DoubleValue total_points = 10;
+}

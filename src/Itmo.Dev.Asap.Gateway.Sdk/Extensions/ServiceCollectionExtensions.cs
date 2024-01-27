@@ -22,6 +22,7 @@ public static class ServiceCollectionExtensions
         collection.AddTransient<AuthenticationHandler>();
 
         AddClient<IAssignmentClient>();
+        AddClient<ICheckingClient>();
         AddClient<IGithubManagementClient>();
         AddClient<IGithubSearchClient>();
         AddClient<IIdentityClient>();
@@ -30,6 +31,7 @@ public static class ServiceCollectionExtensions
         AddClient<ISubjectClient>();
         AddClient<ISubjectCourseClient>();
         AddClient<ISubjectCourseGroupClient>();
+        AddClient<ISubmissionsClient>();
         AddClient<IUserClient>();
 
         collection.AddSingleton<IQueueClient, QueueClient>();

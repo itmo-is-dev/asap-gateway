@@ -29,6 +29,32 @@
           "admin",
           "moderator",
           "mentor"
+        ],
+        "Query": [
+          "admin",
+          "moderator",
+          "mentor"
+        ]
+      },
+      "Checking": {
+        "GetCheckings": [
+          "admin",
+          "moderator",
+          "mentor"
+        ],
+        "GetCheckingResults": [
+          "admin",
+          "moderator",
+          "mentor"
+        ],
+        "GetCheckingCodeBlocks": [
+          "admin",
+          "moderator",
+          "mentor"
+        ],
+        "Start": [
+          "admin",
+          "moderator"
         ]
       },
       "Github": {
@@ -178,6 +204,9 @@
           "admin",
           "moderator",
           "mentor"
+        ],
+        "StartContentDump": [
+          "admin"
         ]
       },
       "SubjectCourseGroups": {
@@ -189,6 +218,18 @@
         ],
         "Delete": [
           "admin"
+        ],
+        "Query": [
+          "admin",
+          "moderator",
+          "mentor"
+        ]
+      },
+      "Submissions": {
+        "Ban": [
+          "admin",
+          "moderator",
+          "mentor"
         ]
       },
       "Users": {

@@ -13,6 +13,7 @@ service AssignmentsService {
   rpc GetGroupAssignments(GetGroupAssignmentsRequest) returns (GetGroupAssignmentsResponse);
   rpc UpdateGroupAssignment(UpdateGroupAssignmentRequest) returns (UpdateGroupAssignmentResponse);
   rpc UpdateGroupAssignmentDeadlines(UpdateGroupAssignmentDeadlinesRequest) returns (UpdateGroupAssignmentDeadlinesResponse);
+  rpc Query(QueryRequest) returns (QueryResponse);
 }
 
 message CreateRequest {
@@ -72,4 +73,14 @@ message UpdateGroupAssignmentDeadlinesRequest {
 
 message UpdateGroupAssignmentDeadlinesResponse {
   repeated GroupAssignment group_assignments = 1;
+}
+
+message QueryRequest {
+  repeated string ids = 1;
+  repeated string names = 2;
+  repeated string subject_course_ids = 3;
+}
+
+message QueryResponse {
+  repeated Assignment assignments = 1;
 }

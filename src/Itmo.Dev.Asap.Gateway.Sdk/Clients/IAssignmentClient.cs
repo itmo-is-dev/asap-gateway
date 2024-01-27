@@ -39,4 +39,9 @@ public interface IAssignmentClient
         Guid assignmentId,
         [Body] UpdateGroupAssignmentDeadlinesRequest request,
         CancellationToken cancellationToken);
+
+    [Post("/api/assignments/query")]
+    Task<IApiResponse<IEnumerable<AssignmentDto>>> QueryAsync(
+        [Body]QueryAssignmentsRequest request,
+        CancellationToken cancellationToken);
 }

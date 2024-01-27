@@ -52,6 +52,7 @@ message QueryStudentRequest {
   repeated string name_patterns = 3;
   repeated string group_name_patterns = 4;
   repeated int32 university_ids = 5;
+  repeated string ids = 6;
 }
 
 message QueryStudentResponse {

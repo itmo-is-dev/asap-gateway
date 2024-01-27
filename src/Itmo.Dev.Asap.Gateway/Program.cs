@@ -4,6 +4,7 @@ using FluentSerialization.Extensions.NewtonsoftJson;
 using Itmo.Dev.Asap.Gateway.Application.Dto.Tools;
 using Itmo.Dev.Asap.Gateway.Application.Extensions;
 using Itmo.Dev.Asap.Gateway.Auth.Extensions;
+using Itmo.Dev.Asap.Gateway.Checker.Extensions;
 using Itmo.Dev.Asap.Gateway.Core.Extensions;
 using Itmo.Dev.Asap.Gateway.Extensions;
 using Itmo.Dev.Asap.Gateway.Github.Extensions;
@@ -27,6 +28,7 @@ await builder.AddYandexCloudConfigurationAsync();
 builder.Services
     .AddApplication()
     .AddAuthGrpcClients()
+    .AddCheckerGrpcClients()
     .AddCoreGrpcClients()
     .AddGithubGrpcClients()
     .AddGoogleGrpcClients()

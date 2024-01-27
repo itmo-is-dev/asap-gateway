@@ -7,7 +7,12 @@ using Itmo.Dev.Asap.Core.Students;
 using Itmo.Dev.Asap.Core.SubjectCourseGroups;
 using Itmo.Dev.Asap.Core.SubjectCourses;
 using Itmo.Dev.Asap.Core.Subjects;
+using Itmo.Dev.Asap.Core.Submissions;
 using Itmo.Dev.Asap.Core.Users;
+using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment;
+using Itmo.Dev.Asap.Gateway.Application.Abstractions.Enrichment.Builders;
+using Itmo.Dev.Asap.Gateway.Application.Dto.Checking;
+using Itmo.Dev.Asap.Gateway.Core.Enrichers;
 using Itmo.Dev.Asap.Gateway.Grpc.Interceptors;
 using Itmo.Dev.Asap.Gateway.Grpc.Tools;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +31,27 @@ public static class ServiceCollectionExtensions
         AddClient<SubjectCourseGroupService.SubjectCourseGroupServiceClient>();
         AddClient<SubjectCourseService.SubjectCourseServiceClient>();
         AddClient<SubjectService.SubjectServiceClient>();
+        AddClient<SubmissionService.SubmissionServiceClient>();
         AddClient<UserService.UserServiceClient>();
         AddClient<QueueService.QueueServiceClient>();
+
+        collection.TryAddEnricher<
+            CheckingResultStudentEnricher,
+            CheckingResultKey,
+            CheckingResultBuilder,
+            CheckingResultDto>();
+
+        collection.TryAddEnricher<
+            CheckingResultAssignmentEnricher,
+            CheckingResultKey,
+            CheckingResultBuilder,
+            CheckingResultDto>();
+
+        collection.TryAddEnricher<
+            CheckingResultSubmissionEnricher,
+            CheckingResultKey,
+            CheckingResultBuilder,
+            CheckingResultDto>();
 
         return collection;
 

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option csharp_namespace = "Itmo.Dev.Asap.Github.Models";
+
+message GithubSubmissionData {
+  string submission_id = 1;
+  string user_id = 2;
+  string assignment_id = 3;
+  int64 task_id = 4;
+  string file_link = 5;
+}

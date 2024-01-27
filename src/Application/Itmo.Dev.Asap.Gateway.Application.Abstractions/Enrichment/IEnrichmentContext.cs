@@ -6,5 +6,7 @@ public interface IEnrichmentContext<TIdentifier, out TBuilder, out TEntity>
 {
     IEnumerable<TIdentifier> Ids { get; }
 
+    IEnumerable<TBuilder> Builders { get; }
+
     TBuilder this[TIdentifier identifier] { get; }
 }

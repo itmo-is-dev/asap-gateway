@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option csharp_namespace = "Itmo.Dev.Asap.Core.Models";
+
+enum SubmissionState {
+  SUBMISSION_STATE_NONE = 0;
+  SUBMISSION_STATE_ACTIVE = 1;
+  SUBMISSION_STATE_INACTIVE = 2;
+  SUBMISSION_STATE_DELETED = 3;
+  SUBMISSION_STATE_COMPLETED = 4;
+  SUBMISSION_STATE_REVIEWED = 5;
+  SUBMISSION_STATE_BANNED = 6;
+}
