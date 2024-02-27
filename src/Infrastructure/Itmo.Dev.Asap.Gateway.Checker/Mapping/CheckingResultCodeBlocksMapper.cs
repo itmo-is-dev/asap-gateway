@@ -8,8 +8,8 @@ public static class CheckingResultCodeBlocksMapper
     public static SimilarCodeBlocksDto MapToDto(this SimilarCodeBlocks codeBlocks)
     {
         return new SimilarCodeBlocksDto(
-            codeBlocks.First.MapToDto(),
-            codeBlocks.Second.MapToDto(),
+            codeBlocks.First.Select(MapToDto).ToArray(),
+            codeBlocks.Second.Select(MapToDto).ToArray(),
             codeBlocks.SimilarityScore);
     }
 
